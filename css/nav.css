@@ -1,32 +1,124 @@
-li,
-a,
-button {
-  font-weight: 500;
-  font-size: 16px;
-  color: #454545;
-  text-decoration: none;
+:root {
+  font-size: 24px;
+  font-family: "Oswald", sans-serif;
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+  --transition-speed: 400ms;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px 10%;
+body {
+  color: black;
+  background-color: white; 
+  margin: 0;
+  padding: 0;
 }
 
-.nav_links {
+/* code to change the appearance of scrollbar */
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #6649b8;
+}
+
+main {
+  margin-left: 5rem;
+  padding: 1rem;
+}
+
+.navbar {
+  width: 5rem;
+  height: 100vh;
+  position: fixed;
+  background-color: var(--bg-primary);
+  transition: width 200ms ease-in-out;
+}
+
+.navbar-nav {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
-.nav_links li {
-  display: inline-block;
-  padding: 0px 20px;
+.nav-item {
+  width: 100%;
 }
 
-.nav_links li a {
-  transition: all 0.1s ease 0s; 
+.nav-item:last-child {
+  margin-top: auto;
 }
 
-.nav_links li a:hover {
-  color: #696996;
+.nav-link {
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  filter: grayscale(100%) opacity(0.7);
+  transition: var(--transition-speed);
+}
+
+.nav-link:hover {
+  filter: grayscale(0%) opacity(1);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+[class^="fa"] {
+  color: #6649b8;
+  transition: var(--transition-speed);
+}
+
+.nav-link i {
+  min-width: 2rem;
+  margin: 0 1.5rem;
+}
+
+.link-text {
+  display: none;
+  margin-left: 1rem;
+  color: var(--text-primary);
+}
+
+.navbar:hover {
+  width: 16rem;
+}
+
+.navbar:hover .link-text {
+  display: block;
+}
+
+.home-logo {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  font-size: 1.5rem;
+  letter-spacing: 0.2ch;
+  width: 100%;
+}
+
+.home-logo i {
+  transform: rotate(0deg);
+  transition: transform 700ms ease;
+}
+
+.navbar:hover i {
+  transform: scale(1, 1);
+}
+
+.navbar:hover .home-logo i {
+  transform: rotate(360deg);
 }
