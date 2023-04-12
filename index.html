@@ -1,37 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>My New PWA</title>
+  <head>
+    <title>My New PWA</title>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/icon.png">
-    <link rel="icon" type="image/png" href="/assets/icons/icon.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/assets/icons/icon.png" sizes="16x16">
-    <link rel="manifest" href="./manifest.json">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/icons/icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/icons/icon.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/icons/icon.png"
+      sizes="16x16"
+    />
+    <link rel="manifest" href="./manifest.json" />
 
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="css/footer.css" />
 
+    <script src="js/main.js"></script>
 
-</head>
-
-<body>
-
-<h1 class="header">Build something awesome here</h1>
-
-</body>
-
-<script src="js/main.js"></script>
-
-<script type="text/javascript">
-    if('serviceWorker' in navigator) {
+    <script type="text/javascript">
+      if ("serviceWorker" in navigator) {
         navigator.serviceWorker
-            .register( window.location.href + 'service-worker.js')
-            .then(function() { 
-                console.log("Service Worker Registered"); 
-        });
-    }
-</script>
+          .register(window.location.href + "service-worker.js")
+          .then(function () {
+            console.log("Service Worker Registered");
+          });
+      }
+    </script>
+  </head>
 
+  <body>
+    <header>
+      <nav>
+        <ul class="nav_links">
+          <li><a href="mathe-demo.html">Allgemein</a></li>
+          <li><a href="mathe-demo.html">Mathe</a></li>
+          <li><a href="mathe-demo.html">Noten</a></li>
+          <li><a href="mathe-demo.html">Internettechnologien</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div>
+      <table></table>
+    </div>
+    <footer>
+      <ul class="footer_links">
+        <li><a href="mathe-demo.html">Allgemein</a></li>
+        <li><a href="mathe-demo.html">Mathe</a></li>
+        <li><a href="mathe-demo.html">Noten</a></li>
+        <li><a href="mathe-demo.html">Internettechnologien</a></li>
+      </ul>
+    </footer>
+  </body>
 </html>
