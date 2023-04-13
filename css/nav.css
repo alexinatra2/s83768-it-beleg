@@ -1,21 +1,20 @@
 :root {
-  font-size: 24px;
+  font-size: 16px;
   font-family: "Oswald", sans-serif;
   --text-primary: #b6b6b6;
   --text-secondary: #ececec;
   --bg-primary: #23232e;
   --bg-secondary: #141418;
-  --transition-speed: 400ms;
+  --transition-speed: 600ms;
 }
 
 body {
   color: black;
-  background-color: white; 
+  background-color: white;
   margin: 0;
   padding: 0;
 }
 
-/* code to change the appearance of scrollbar */
 body::-webkit-scrollbar {
   width: 0.25rem;
 }
@@ -34,20 +33,20 @@ main {
 }
 
 .navbar {
-  width: 5rem;
-  height: 100vh;
   position: fixed;
   background-color: var(--bg-primary);
-  transition: width 200ms ease-in-out;
+  transition: width 600ms ease;
+  overflow: scroll;
 }
 
 .navbar-nav {
   list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0;
-  padding: 0;
+  height: 100%;
 }
 
 .nav-item {
@@ -70,32 +69,24 @@ main {
 
 .nav-link:hover {
   filter: grayscale(0%) opacity(1);
-  background-color: var(--bg-secondary);
+  background: var(--bg-secondary);
   color: var(--text-secondary);
-}
-
-[class^="fa"] {
-  color: #6649b8;
-  transition: var(--transition-speed);
-}
-
-.nav-link i {
-  min-width: 2rem;
-  margin: 0 1.5rem;
 }
 
 .link-text {
   display: none;
   margin-left: 1rem;
-  color: var(--text-primary);
 }
 
-.navbar:hover {
-  width: 16rem;
+.nav-link i {
+  width: 1rem;
+  min-width: 1rem;
+  margin: 0 1.5rem;
 }
 
-.navbar:hover .link-text {
-  display: block;
+[class^="fa"] {
+  color: #df49a6;
+  transition: var(--transition-speed);
 }
 
 .home-logo {
@@ -106,19 +97,98 @@ main {
   color: var(--text-secondary);
   background: var(--bg-secondary);
   font-size: 1.5rem;
-  letter-spacing: 0.2ch;
+  letter-spacing: 0.3ch;
   width: 100%;
 }
 
 .home-logo i {
   transform: rotate(0deg);
-  transition: transform 700ms ease;
-}
-
-.navbar:hover i {
-  transform: scale(1, 1);
+  transition: var(--transition-speed);
 }
 
 .navbar:hover .home-logo i {
-  transform: rotate(360deg);
+  transform: rotate(-180deg);
+}
+
+/* Small screens */
+@media only screen and (max-width: 600px) {
+  .navbar {
+    bottom: 0;
+    width: 100vw;
+    height: 5rem;
+  }
+
+  .home-logo {
+    display: none;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+  }
+
+  .nav-link {
+    justify-content: center;
+  }
+
+  main {
+    margin: 0;
+  }
+}
+
+/* Large screens */
+@media only screen and (min-width: 600px) {
+  .navbar {
+    top: 0;
+    width: 5rem;
+    height: 100vh;
+  }
+
+  .navbar:hover {
+    width: 16rem;
+  }
+
+  .navbar:hover .link-text {
+    display: inline;
+  }
+
+  .navbar:hover .home-logo i {
+    margin-left: 11rem;
+  }
+}
+
+.dark {
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+}
+
+.light {
+  --text-primary: #1f1f1f;
+  --text-secondary: #000000;
+  --bg-primary: #ffffff;
+  --bg-secondary: #e4e4e4;
+}
+
+.solar {
+  --text-primary: #576e75;
+  --text-secondary: #35535c;
+  --bg-primary: #fdf6e3;
+  --bg-secondary: #f5e5b8;
+}
+
+.theme-icon {
+  display: none;
+}
+
+.dark #darkIcon {
+  display: block;
+}
+
+.light #lightIcon {
+  display: block;
+}
+
+.solar #solarIcon {
+  display: block;
 }
