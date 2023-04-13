@@ -1,6 +1,7 @@
 :root {
-  font-size: 16px;
+  font-size: 24px;
   font-family: "Oswald", sans-serif;
+  z-index: 0;
   --text-primary: #b6b6b6;
   --text-secondary: #ececec;
   --bg-primary: #23232e;
@@ -38,6 +39,7 @@ main {
   background-color: var(--bg-primary);
   transition: width 400ms ease;
   overflow: scroll;
+  z-index: 1;
 }
 
 .navbar-nav {
