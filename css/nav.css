@@ -6,6 +6,7 @@
   --bg-primary: #23232e;
   --bg-secondary: #141418;
   --transition-speed: 600ms;
+  --icon-color: #6649b8;
 }
 
 body {
@@ -35,7 +36,7 @@ main {
 .navbar {
   position: fixed;
   background-color: var(--bg-primary);
-  transition: width 600ms ease;
+  transition: width 400ms ease;
   overflow: scroll;
 }
 
@@ -85,7 +86,7 @@ main {
 }
 
 [class^="fa"] {
-  color: #df49a6;
+  color: var(--icon-color);
   transition: var(--transition-speed);
 }
 
@@ -103,11 +104,11 @@ main {
 
 .home-logo i {
   transform: rotate(0deg);
-  transition: var(--transition-speed);
+  transition: 200ms;
 }
 
 .navbar:hover .home-logo i {
-  transform: rotate(-180deg);
+  transform: rotate(360deg);
 }
 
 /* Small screens */
@@ -150,10 +151,6 @@ main {
   .navbar:hover .link-text {
     display: inline;
   }
-
-  .navbar:hover .home-logo i {
-    margin-left: 11rem;
-  }
 }
 
 .dark {
@@ -161,6 +158,7 @@ main {
   --text-secondary: #ececec;
   --bg-primary: #23232e;
   --bg-secondary: #141418;
+  --icon-color: #35e844;
 }
 
 .light {
@@ -168,6 +166,7 @@ main {
   --text-secondary: #000000;
   --bg-primary: #ffffff;
   --bg-secondary: #e4e4e4;
+  --icon-color: #6649b8;
 }
 
 .solar {
@@ -175,9 +174,18 @@ main {
   --text-secondary: #35535c;
   --bg-primary: #fdf6e3;
   --bg-secondary: #f5e5b8;
+  --icon-color: #6649b8;
 }
 
-.theme-icon {
+#darkIcon {
+  display: none;
+}
+
+#lightIcon {
+  display: none;
+}
+
+#solarIcon {
   display: none;
 }
 
