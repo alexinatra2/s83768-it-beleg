@@ -2,15 +2,14 @@ const api_base_url = "https://irene.informatik.htw-dresden.de:8888/api/quizzes/"
 
 // utility for checking a radio button option
 function check(event) {
-  var elem = event.target;
-  var optionsElem = document.getElementById("options");
-  var options = optionsElem.children;
+  const elem = event.target;
+  const options = document.getElementsByClassName("option");
   for (var i = 0; i < options.length; i++) {
-    var option = options[i];
+    const option = options[i];
     option.classList.remove("selected");
   }
   elem.classList.add("selected");
-  var inputElem = elem.querySelector("input");
+  const inputElem = elem.querySelector("input");
   inputElem.checked = true;
 }
 

@@ -2,35 +2,39 @@
   --button-border-radius: 20px; 
 }
 
-.question {
-  display: flex;
-  flex-direction: column;
-}
-
 .options {
   padding: 0;
+  margin: 0.5rem;
   list-style: none;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
 }
 
-.option {
+.options li {
   margin: 0.5rem 0rem;
-  padding: 1rem;
+  height: 100%;
   width: 100%;
   
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
   color: var(--text-primary);
   background-color: var(--bg-primary);
-  transition: var(--transition-speed);
+  transition: all var(--transition-speed);
   border-radius: var(--button-border-radius);
   box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
+  text-decoration: none;
+  overflow: hidden;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.option:hover {
+.options li:hover {
   background: var(--bg-secondary);
   color: var(--text-secondary);
   box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em, rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
@@ -41,15 +45,14 @@
   display: none;
 }
 
+.submit-button {
+  grid-column: span 2;
+}
+
 .selected {
   background: var(--selected-primary);
 }
 
-.submit-button-label {
-  background-color: var(--bg-secondary);
-  border-radius: var(--button-border-radius);
-}
-
 #submit-button {
-  display: none;
+  display: none
 }

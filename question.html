@@ -43,6 +43,7 @@
 
     <!-- use of scripts -->
     <script src="js/main.js"></script>
+    <script defer src="js/theme.js"></script>
 
     <script type="text/javascript">
       if ("serviceWorker" in navigator) {
@@ -57,7 +58,6 @@
       src="https://kit.fontawesome.com/086e5bc465.js"
       crossorigin="anonymous"
     ></script>
-    <script defer src="js/theme.js"></script>
   </head>
 
   <body class="dark">
@@ -146,12 +146,13 @@
             <input type="radio" id="option-d" name="question" />
             <label for="option-d">Option D</label>
           </li>
+          <li class="submit-button">
+            <label for="submit-button" id="submit-button-label"
+              >Submit Answer</label
+            >
+          </li>
         </ul>
-
         <input type="submit" id="submit-button" />
-        <label for="submit-button" id="submit-button-label">
-          Submit Answer
-        </label>
       </form>
     </main>
 
