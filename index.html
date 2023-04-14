@@ -39,10 +39,11 @@
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" type="text/css" href="css/theme.css" />
     <link rel="stylesheet" type="text/css" href="css/nav.css" />
-    <link rel="stylesheet" type="text/css" href="css/question.css" />
+    <link rel="stylesheet" type="text/css" href="css/menu.css" />
 
     <!-- use of scripts -->
     <script src="js/main.js"></script>
+    <script defer src="js/theme.js"></script>
 
     <script type="text/javascript">
       if ("serviceWorker" in navigator) {
@@ -57,59 +58,13 @@
       src="https://kit.fontawesome.com/086e5bc465.js"
       crossorigin="anonymous"
     ></script>
-    <script defer src="js/theme.js"></script>
   </head>
 
   <body class="dark">
-    <!-- navigation bar  -->
     <nav class="navbar">
-      <!-- unordered list containing the "actual nav" -->
       <ul class="navbar-nav">
-        <li class="home-logo">
-          <a href="index.html" class="nav-link">
-            <span class="link-text">Lernapp</span>
-            <i class="fa-solid fa-house"></i>
-          </a>
-        </li>
-
-        <!-- list item within the nav element -->
         <li class="nav-item">
-          <a href="mathe-demo.html" class="nav-link">
-            <i class="fa-solid fa-earth-europe"></i>
-            <span class="link-text">Allgemein</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="mathe-demo.html" class="nav-link">
-            <i class="fa-solid fa-square-root-variable"></i>
-            <span class="link-text">Mathe</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="mathe-demo.html" class="nav-link">
-            <i class="fa-brands fa-firefox-browser"></i>
-            <span class="link-text">Internettechnologien</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="mathe-demo.html" class="nav-link">
-            <i class="fa-solid fa-music"></i>
-            <span class="link-text">Musik</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="mathe-demo.html" class="nav-link">
-            <i class="fa-solid fa-shuffle"></i>
-            <span class="link-text">Zufall</span>
-          </a>
-        </li>
-
-        <li class="nav-item" id="themeButton">
-          <a href="#" class="nav-link">
+          <a href="#" id="themeButton" class="nav-link">
             <i class="fa-solid fa-moon" id="darkIcon"></i>
             <i class="fa-solid fa-sun" id="lightIcon"></i>
             <i class="fa-solid fa-solar-panel" id="solarIcon"></i>
@@ -119,38 +74,33 @@
       </ul>
     </nav>
 
-    <header></header>
+    <header>
+      <h1>This is my PWA</h1>
+    </header>
 
     <main>
-      <form class="question">
-        <p id="question">Question life?</p>
-
-        <ul class="options" id="options">
-          <li class="option" onclick="check(event)">
-            <input type="radio" id="option-a" name="question" />
-            <label for="option-a">Option A</label>
-          </li>
-          <li class="option" onclick="check(event)">
-            <input type="radio" id="option-b" name="question" />
-            <label for="option-b">Option B</label>
-          </li>
-
-          <li class="option" onclick="check(event)">
-            <input type="radio" id="option-c" name="question" />
-            <label for="option-c">Option C</label>
-          </li>
-
-          <li class="option" onclick="check(event)">
-            <input type="radio" id="option-d" name="question" />
-            <label for="option-d">Option D</label>
-          </li>
-        </ul>
-
-          <input type="submit" id="submit-button" />
-          <label for="submit-button" id="submit-button-label">Submit Answer</label>
-      </form>
+      <menu>
+        <a href="question.html" class="menu-item">
+          <i class="fa-solid fa-earth-europe"></i>
+          <label class="link-text">Allgemein</label>
+        </a>
+        <a href="question.html" class="menu-item">
+          <i class="fa-solid fa-square-root-variable"></i>
+          <label class="link-text">Mathematik</label>
+        </a>
+        <a href="question.html" class="menu-item">
+          <i class="fa-brands fa-firefox-browser"></i>
+          <label class="link-text">Internettechnologien</label>
+        </a>
+        <a href="question.html" class="menu-item">
+          <i class="fa-solid fa-music"></i>
+          <label class="link-text">Musik</label>
+        </a>
+        <a href="question.html" class="menu-item">
+          <i class="fa-solid fa-shuffle"></i>
+          <label class="link-text">Zufall</label>
+        </a>
+      </menu>
     </main>
-
-    <footer></footer>
   </body>
 </html>

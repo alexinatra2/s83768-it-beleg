@@ -8,7 +8,6 @@
 }
 
 .options {
-  margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
@@ -28,11 +27,14 @@
   background-color: var(--bg-primary);
   transition: var(--transition-speed);
   border-radius: var(--button-border-radius);
+  box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
 }
 
 .option:hover {
   background: var(--bg-secondary);
   color: var(--text-secondary);
+  box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em, rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
+  transform: translateY(-3px) scale(1.1);
 }
 
 .option input {

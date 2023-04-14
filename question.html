@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My New PWA</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000" />
+
+    <!-- use of icons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/icons/icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/icons/icon.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/icons/icon.png"
+      sizes="16x16"
+    />
+    <link rel="manifest" href="./manifest.json" />
+
+    <!-- import the google font Oswald -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald&display=swap"
+      rel="stylesheet"
+    />
+    <!-- end import the goolge font Oswald  -->
+
+    <!-- use the stylesheets inside the css directory -->
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="css/question.css" />
+
+    <!-- use of scripts -->
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register(window.location.href + "service-worker.js")
+          .then(function () {
+            console.log("Service Worker Registered");
+          });
+      }
+    </script>
+    <script
+      src="https://kit.fontawesome.com/086e5bc465.js"
+      crossorigin="anonymous"
+    ></script>
+    <script defer src="js/theme.js"></script>
+  </head>
+
+  <body class="dark">
+    <!-- navigation bar  -->
+    <nav class="navbar">
+      <!-- unordered list containing the "actual nav" -->
+      <ul class="navbar-nav">
+        <li class="home-logo">
+          <a href="index.html" class="nav-link">
+            <span class="link-text">Lernapp</span>
+            <i class="fa-solid fa-house"></i>
+          </a>
+        </li>
+
+        <!-- list item within the nav element -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-earth-europe"></i>
+            <span class="link-text">Allgemein</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-square-root-variable"></i>
+            <span class="link-text">Mathematik</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-brands fa-firefox-browser"></i>
+            <span class="link-text">Internettechnologien</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-music"></i>
+            <span class="link-text">Musik</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-shuffle"></i>
+            <span class="link-text">Zufall</span>
+          </a>
+        </li>
+
+        <li class="nav-item" id="themeButton">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-moon" id="darkIcon"></i>
+            <i class="fa-solid fa-sun" id="lightIcon"></i>
+            <i class="fa-solid fa-solar-panel" id="solarIcon"></i>
+            <span class="link-text">Farben</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <header>
+      <h1>This is my PWA</h1>
+    </header>
+
+    <main>
+      <form class="question">
+        <p id="question">Question life?</p>
+
+        <ul class="options" id="options">
+          <li class="option" onclick="check(event)">
+            <input type="radio" id="option-a" name="question" />
+            <label for="option-a">Option A</label>
+          </li>
+          <li class="option" onclick="check(event)">
+            <input type="radio" id="option-b" name="question" />
+            <label for="option-b">Option B</label>
+          </li>
+
+          <li class="option" onclick="check(event)">
+            <input type="radio" id="option-c" name="question" />
+            <label for="option-c">Option C</label>
+          </li>
+
+          <li class="option" onclick="check(event)">
+            <input type="radio" id="option-d" name="question" />
+            <label for="option-d">Option D</label>
+          </li>
+        </ul>
+
+        <input type="submit" id="submit-button" />
+        <label for="submit-button" id="submit-button-label">
+          Submit Answer
+        </label>
+      </form>
+    </main>
+
+    <footer></footer>
+  </body>
+</html>
