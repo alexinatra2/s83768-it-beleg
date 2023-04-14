@@ -50,7 +50,7 @@
 }
 
 .selected {
-  background: var(--selected-primary);
+  background-color: var(--selected-primary);
 }
 
 #submit-button {

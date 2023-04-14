@@ -20,7 +20,7 @@ body {
 }
 
 main {
-  margin: 5rem;
+  margin-left: 5rem;
   background-color: var(--bg-main);
 }
 
