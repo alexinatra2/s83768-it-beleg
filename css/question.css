@@ -1,24 +1,36 @@
+:root {
+  --button-border-radius: 20px; 
+}
+
+.question {
+  display: flex;
+  flex-direction: column;
+}
+
 .options {
   margin: 0;
   padding: 0;
-  height: 80vh;
+  list-style: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  list-style: none;
 }
 
 .option {
-  height: 25%;
+  margin: 0.5rem 0rem;
+  padding: 1rem;
   width: 100%;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   color: var(--text-primary);
-  text-decoration: none;
-  filter: grayscale(100%) opacity(0.7); 
+  background-color: var(--bg-primary);
   transition: var(--transition-speed);
+  border-radius: var(--button-border-radius);
 }
 
 .option:hover {
-  filter: grayscale(0%) opacity(1);
   background: var(--bg-secondary);
   color: var(--text-secondary);
 }
@@ -28,11 +40,14 @@
 }
 
 .selected {
-  filter: grayscale(0%) opacity(1);
-  background: var(--bg-primary);
+  background: var(--selected-primary);
 }
 
-.submit-button {
-  margin-top: auto;
-  border: none;
+.submit-button-label {
+  background-color: var(--bg-secondary);
+  border-radius: var(--button-border-radius);
+}
+
+#submit-button {
+  display: none;
 }

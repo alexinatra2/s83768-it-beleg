@@ -37,6 +37,7 @@
 
     <!-- use the stylesheets inside the css directory -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/theme.css" />
     <link rel="stylesheet" type="text/css" href="css/nav.css" />
     <link rel="stylesheet" type="text/css" href="css/question.css" />
 
@@ -122,10 +123,9 @@
 
     <main>
       <form class="question">
+        <p id="question">Question life?</p>
 
-        <p>Question life?</p>
-        
-        <ul class="options" id="options"> 
+        <ul class="options" id="options">
           <li class="option" onclick="check(event)">
             <input type="radio" id="option-a" name="question" />
             <label for="option-a">Option A</label>
@@ -146,8 +146,8 @@
           </li>
         </ul>
 
-        <input type="submit" id="submit-button" />
-        <label for="submit-button"></label>
+          <input type="submit" id="submit-button" />
+          <label for="submit-button" id="submit-button-label">Submit Answer</label>
       </form>
     </main>
 
