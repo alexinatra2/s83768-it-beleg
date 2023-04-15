@@ -1,13 +1,8 @@
-:root {
-  --button-border-radius: 20px;
-}
-
-
 #question {
   margin: 1rem;
 }
 
-.options {
+.tiles {
   height: 100%;
   width: 100%;
   padding: 0;
@@ -18,7 +13,7 @@
   grid-gap: 1rem;
 }
 
-.options li {
+.tiles li {
   margin: 0.5rem 0.5rem;
   height: 100%;
   width: 100%;
@@ -31,7 +26,7 @@
   color: var(--text-primary);
   background-color: var(--bg-primary);
   transition: all var(--transition-speed);
-  border-radius: var(--button-border-radius);
+  border-radius: 20px;
   box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem,
     rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
   text-decoration: none;
@@ -42,7 +37,7 @@
   background-repeat: no-repeat;
 }
 
-.options li:hover {
+.tiles li:hover {
   background: var(--bg-secondary);
   color: var(--text-secondary);
   box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em,
@@ -58,17 +53,15 @@
   display: none;
 }
 
-#submit-button-label {
+#submit-button-label,.add-button {
   grid-column: span 2;
 }
 
-.selection-pending {
-  background-color: var(--bg-primary);
+.pending {
   pointer-events: none;
 }
 
-.selection-made {
-  background-color: var(--selected-primary);
+.ready {
   pointer-events: all;
 }
 
@@ -80,10 +73,8 @@
   display: none;
 }
 
-.add-button {
-  grid-column: span 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+input[type="text"] {
+  border: none;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
-

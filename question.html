@@ -27,8 +27,6 @@
     <link rel="manifest" href="./manifest.json" />
 
     <!-- import the google font Oswald -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Oswald&display=swap"
       rel="stylesheet"
@@ -36,11 +34,13 @@
     <!-- end import the goolge font Oswald  -->
 
     <!-- use the stylesheets inside the css directory -->
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <link rel="stylesheet" type="text/css" href="css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="css/nav.css" />
-    <link rel="stylesheet" type="text/css" href="css/question.css" />
-    <link rel="stylesheet" type="text/css" href="css/header.css" />
+    <style>
+      @import "css/main.css";
+      @import "css/theme.css";
+      @import "css/nav.css";
+      @import "css/tiles.css";
+      @import "css/header.css";
+    </style>
 
     <!-- use of scripts -->
     <script src="js/main.js"></script>
@@ -128,11 +128,9 @@
       <form class="question">
         <p id="question">Question life?</p>
 
-        <ul class="options" id="options"> 
-          <li id="submit-button-label" class="selection-pending">
-            <label for="submit-button" 
-              >Submit Answer</label
-            >
+        <ul class="tiles" id="options">
+          <li id="submit-button-label" class="pending">
+            <label for="submit-button">Submit Answer</label>
           </li>
         </ul>
         <input type="submit" id="submit-button" />

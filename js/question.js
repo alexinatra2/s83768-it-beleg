@@ -6,19 +6,10 @@ async function load_env() {
   env.API_BASE_URL = env.WEB_QUIZ_URL + env.WEB_QUIZ_API_PATH;
 }
 
-function populate_options() {
-  const json = {
-    "options": [
-      "first option",
-      "second option",
-      "third option",
-      "fourth option",
-    ],
-  };
-
+function populate_options(data) {
   const optionsElem = document.getElementById("options");
 
-  const options = json.options;
+  const options = data.options;
   for (var i = 0; i < options.length; i++) {
     create_option(optionsElem, i, options[i]);
   }
@@ -31,15 +22,15 @@ function create_option(elem, index, content) {
   li.setAttribute("class", "option");
   li.setAttribute("onclick", "check(event)");
 
-  const option_id = "option-" + index;
+  const optionID = "option-" + index;
   const input = li.appendChild(document.createElement("input"));
-  input.setAttribute("id", option_id);
+  input.setAttribute("id", optionID);
   input.setAttribute("type", "radio");
   input.setAttribute("name", "question");
   input.setAttribute("value", index);
 
   const label = li.appendChild(document.createElement("label"));
-  label.setAttribute("for", option_id);
+  label.setAttribute("for", optionID);
   label.textContent = content;
 
   const submitElem = document.getElementById("submit-button-label");
@@ -96,7 +87,7 @@ async function completed_questions() {
   return await response.json();
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  load_env();
-  populate_options();
+document.addEventListener("DOMContentLoaded", async function () {
+  await load_env();
+  populate_options(env.test_data);
 }, false);
