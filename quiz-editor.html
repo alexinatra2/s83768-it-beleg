@@ -39,10 +39,11 @@
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" type="text/css" href="css/theme.css" />
     <link rel="stylesheet" type="text/css" href="css/nav.css" />
-    <link rel="stylesheet" type="text/css" href="css/menu.css" />
+    <link rel="stylesheet" type="text/css" href="css/question.css" />
     <link rel="stylesheet" type="text/css" href="css/header.css" />
 
     <!-- use of scripts -->
+    <script src="js/main.js"></script>
     <script defer src="js/theme.js"></script>
 
     <!-- <script type="text/javascript"> -->
@@ -61,7 +62,9 @@
   </head>
 
   <body class="dark">
+    <!-- navigation bar  -->
     <nav class="navbar">
+      <!-- unordered list containing the "actual nav" -->
       <ul class="navbar-nav">
         <li class="home-logo">
           <a href="index.html" class="nav-link">
@@ -69,8 +72,44 @@
             <i class="fa-solid fa-house"></i>
           </a>
         </li>
+
+        <!-- list item within the nav element -->
         <li class="nav-item">
-          <a href="#" id="themeButton" class="nav-link">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-earth-europe"></i>
+            <span class="link-text">Allgemein</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-square-root-variable"></i>
+            <span class="link-text">Mathematik</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-brands fa-firefox-browser"></i>
+            <span class="link-text">Internettechnologien</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-music"></i>
+            <span class="link-text">Musik</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-shuffle"></i>
+            <span class="link-text">Zufall</span>
+          </a>
+        </li>
+
+        <li class="nav-item" id="themeButton">
+          <a href="#" class="nav-link">
             <i class="fa-solid fa-moon" id="darkIcon"></i>
             <i class="fa-solid fa-sun" id="lightIcon"></i>
             <i class="fa-solid fa-solar-panel" id="solarIcon"></i>
@@ -85,32 +124,26 @@
     </header>
 
     <main>
-      <menu>
-        <a href="question.html" class="menu-item">
-          <i class="fa-solid fa-earth-europe"></i>
-          <label class="link-text">Allgemein</label>
-        </a>
-        <a href="question.html" class="menu-item">
-          <i class="fa-solid fa-square-root-variable"></i>
-          <label class="link-text">Mathematik</label>
-        </a>
-        <a href="question.html" class="menu-item">
-          <i class="fa-brands fa-firefox-browser"></i>
-          <label class="link-text">Internettechnologien</label>
-        </a>
-        <a href="question.html" class="menu-item">
-          <i class="fa-solid fa-music"></i>
-          <label class="link-text">Musik</label>
-        </a>
-        <a href="question.html" class="menu-item">
-          <i class="fa-solid fa-shuffle"></i>
-          <label class="link-text">Zufall</label>
-        </a>
-        <a href="quiz-editor.html" class="menu-item">
-          <i class="fa-solid fa-pen-to-square"></i>
-          <label class="link-text">Quiz Editor</label>
-        </a>
-      </menu>
+      <form class="question">
+        <p id="question">
+          <input type="text" name="question" />
+        </p>
+
+        <ul class="options" id="options">
+          <li class="add-button">
+            <i class="fa-solid fa-trash"></i>
+            <i class="fa-solid fa-plus"></i>
+            <label>Add Option</label>
+          </li>
+          <li id="submit-button-label" class="selection-pending">
+            <label for="submit-button">Save</label>
+          </li>
+        </ul>
+
+        <input type="submit" id="submit-button" />
+      </form>
     </main>
+
+    <footer></footer>
   </body>
 </html>
