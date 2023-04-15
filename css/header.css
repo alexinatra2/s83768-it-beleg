@@ -1,14 +1,11 @@
 header {
   height: 5rem;
-  background: linear-gradient(
-    to right,
-    var(--bg-header-start),
-    var(--bg-header-end)
-  );
+  background: var(--bg-header-start);
   color: var(--text-secondary);
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-content: center;
+  border-bottom: 1rem solid var(--bg-header-end);
 }
 
 @keyframes color-rotate {

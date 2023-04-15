@@ -1,4 +1,7 @@
-const api_base_url = "https://irene.informatik.htw-dresden.de:8888/api/quizzes/";
+const api_base_url =
+  "https://irene.informatik.htw-dresden.de:8888/api/quizzes/";
+
+var selection_pending = true;
 
 // utility for checking a radio button option
 function check(event) {
@@ -8,10 +11,59 @@ function check(event) {
     const option = options[i];
     option.classList.remove("selected");
   }
+
   elem.classList.add("selected");
   const inputElem = elem.querySelector("input");
   inputElem.checked = true;
+
+  if (selection_pending) {
+    const submit_button = document.getElementById("submit-button-label");
+    const submit_button_classes = submit_button.classList;
+    submit_button_classes.remove("selection-pending");
+    submit_button_classes.add("selection-made");
+  }
 }
+
+function populate_options() {
+  const json = {
+    "options": [
+      "first option",
+      "second option",
+      "third option",
+      "fourth option"
+    ]
+  };
+
+  const optionsElem = document.getElementById("options");
+
+  const options = json.options;
+  for (var i = 0; i < options.length; i++) {
+    create_option(optionsElem, i, options[i]);
+  }
+}
+
+function create_option(elem, index, content) {
+  const fragment = document.createDocumentFragment();
+
+  const li = fragment.appendChild(document.createElement("li"));
+  li.setAttribute("class", "option");
+  li.setAttribute("onclick", "check(event)");
+
+  const option_id = "option-" + index;
+  const input = li.appendChild(document.createElement("input"));
+  input.setAttribute("id", option_id);
+  input.setAttribute("type", "radio");
+  input.setAttribute("name", "question");
+  input.setAttribute("value", index);
+
+  const label = li.appendChild(document.createElement("label"));
+  label.setAttribute("for", option_id);
+  label.textContent = content; 
+  
+  const submitElem = document.getElementById("submit-button-label");
+
+  elem.insertBefore(fragment, submitElem);
+} 
 
 // get a question from the web-quizzes api
 async function get_question() {
@@ -24,7 +76,6 @@ async function get_question() {
   );
   return await response.json();
 }
-
 
 // solve a question from the web-quizzes api
 async function solve_question(solution) {
@@ -49,7 +100,11 @@ async function completed_questions() {
     {
       method: "GET",
       credentials: "include",
-    }
+    },
   );
   return await response.json();
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+  populate_options();
+}, false);
