@@ -2,26 +2,36 @@
   font-size: 24px;
   font-family: "Oswald", sans-serif;
   z-index: 0;
+  height: 100%;
   --bg-main: #34343f;
-  --text-primary: #b6b6b6;
-  --text-secondary: #ececec;
+  --bg-header-start: #35e844;
+  --bg-header-end: #55ff88;
   --bg-primary: #23232e;
   --bg-secondary: #141418;
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --selected-primary: #35e844;
+  --selected-secondary: #55ff88;
   --transition-speed: 600ms;
-  --selected-primary: #6649b8;
-  --selected-secondary: #885ac9;
 }
 
 body {
-  color: var(--text-primary);
-  background-color: var(--bg-main);
   margin: 0;
   padding: 0;
+  height: 100%;
+  background-color: var(--bg-main);
 }
 
 main {
-  margin-left: 5rem;
-  background-color: var(--bg-main);
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+main p {
+  margin: 0;
+  padding: 0;
+  color: var(--text-primary);
 }
 
 body::-webkit-scrollbar {
@@ -38,7 +48,16 @@ body::-webkit-scrollbar-thumb {
 
 /* small screens */
 @media only screen and (max-width: 600px) {
-  main {
+  main,
+  header {
     margin: 0;
+  }
+}
+
+/* large screens */
+@media only screen and (min-width: 600px) {
+  main,
+  header {
+    margin-left: 5rem;
   }
 }

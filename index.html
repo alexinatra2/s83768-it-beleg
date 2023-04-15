@@ -40,20 +40,21 @@
     <link rel="stylesheet" type="text/css" href="css/theme.css" />
     <link rel="stylesheet" type="text/css" href="css/nav.css" />
     <link rel="stylesheet" type="text/css" href="css/menu.css" />
+    <link rel="stylesheet" type="text/css" href="css/header.css" />
 
     <!-- use of scripts -->
     <script src="js/main.js"></script>
     <script defer src="js/theme.js"></script>
 
-    <script type="text/javascript">
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register(window.location.href + "service-worker.js")
-          .then(function () {
-            console.log("Service Worker Registered");
-          });
-      }
-    </script>
+    <!-- <script type="text/javascript"> -->
+    <!--   if ("serviceWorker" in navigator) { -->
+    <!--     navigator.serviceWorker -->
+    <!--       .register(window.location.href + "service-worker.js") -->
+    <!--       .then(function () { -->
+    <!--         console.log("Service Worker Registered"); -->
+    <!--       }); -->
+    <!--   } -->
+    <!-- </script> -->
     <script
       src="https://kit.fontawesome.com/086e5bc465.js"
       crossorigin="anonymous"
@@ -63,6 +64,12 @@
   <body class="dark">
     <nav class="navbar">
       <ul class="navbar-nav">
+        <li class="home-logo">
+          <a href="index.html" class="nav-link">
+            <span class="link-text">Lernapp</span>
+            <i class="fa-solid fa-house"></i>
+          </a>
+        </li>
         <li class="nav-item">
           <a href="#" id="themeButton" class="nav-link">
             <i class="fa-solid fa-moon" id="darkIcon"></i>

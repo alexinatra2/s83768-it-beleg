@@ -1,9 +1,27 @@
 header {
-  margin: 5rem;
-  padding: 0;
+  height: 5rem;
+  background: linear-gradient(
+    to right,
+    var(--bg-header-start),
+    var(--bg-header-end)
+  );
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: left;
+  align-content: center;
+}
 
-  height: 10vh;
-  width: 100vh;
+@keyframes color-rotate {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
 
-  background-color: yellow;
+header:hover {
+  animation: color-rotate 20s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }

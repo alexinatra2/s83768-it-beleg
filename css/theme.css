@@ -1,5 +1,7 @@
 .dark {
   --bg-main: #34343f;
+  --bg-header-start: #35e844;
+  --bg-header-end: #55ff88;
   --bg-primary: #23232e;
   --bg-secondary: #141418;
   --text-primary: #b6b6b6;
@@ -10,6 +12,8 @@
 
 .light {
   --bg-main: #e8e8e8;
+  --bg-header-start: #6649b8;
+  --bg-header-end: #885ac9;
   --bg-primary: #e4e4e4;
   --bg-secondary: #c4c4c4;
   --text-primary: #1f1f1f;
@@ -20,6 +24,8 @@
 
 .solar {
   --bg-main: #ffffe1;
+  --bg-header-start: #35e844;
+  --bg-header-end: #55ff88;
   --bg-primary: #fdf6e3;
   --bg-secondary: #f5e5b8;
   --text-primary: #576e75;
