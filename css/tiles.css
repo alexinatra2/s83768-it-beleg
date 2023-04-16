@@ -30,11 +30,6 @@
   box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem,
     rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
   text-decoration: none;
-  overflow: hidden;
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .tiles li:hover {
@@ -54,7 +49,8 @@
   display: none;
 }
 
-#submit-button-label,.add-button {
+#submit-button-label,
+.add-button {
   grid-column: span 2;
 }
 
@@ -74,7 +70,8 @@
   display: none;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="radio"] {
   border: none;
   outline: none;
   background-color: var(--bg-primary);
@@ -83,17 +80,12 @@ input[type="text"] {
 
 .new-option-link {
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 3fr 1fr 1fr;
   grid-gap: 1rem;
   align-items: center;
 }
 
-#question input {
-  font-size: 1rem;
-  margin-right: auto;
-}
-
-.question p {
+.question {
   margin: 0 1rem;
   align-items: center;
 }

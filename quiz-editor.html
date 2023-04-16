@@ -132,9 +132,13 @@
 
     <main>
       <form id="question-form">
-        <p>
+        <p class="question">
+          <label for="question-title">Question Title:</label>
+          <input type="text" id="question-title" name="title" />
+        </p>
+        <p class="question">
           <label for="question">Question:</label>
-          <input type="text" id="question" name="question" />
+          <input type="text" id="question" name="text" />
         </p>
 
         <ul class="tiles" id="options">
@@ -144,11 +148,7 @@
             </a>
           </li>
 
-          <li
-            id="submit-button-label"
-            class="pending"
-            onclick="create_quiz_question()"
-          >
+          <li id="submit-button-label" class="pending">
             <label for="submit-button">Save</label>
           </li>
         </ul>

@@ -51,19 +51,19 @@ function add_empty_option() {
   const a = li.appendChild(document.createElement("a"));
   a.setAttribute("class", "new-option-link");
 
+  const radioButton = a.appendChild(document.createElement("input"));
+  radioButton.setAttribute("type", "radio");
+  radioButton.setAttribute("name", "answer");
+  radioButton.setAttribute("value", "[" + newOptions + "]");
+  radioButton.setAttribute("id", optionID);
+  radioButton.setAttribute("onclick", "validate()");
+
   const label = a.appendChild(document.createElement("label"));
   label.textContent = "Option " + OPTIONS_LABEL[newOptions] + ":";
 
   const textInput = a.appendChild(document.createElement("input"));
   textInput.setAttribute("type", "text");
   textInput.setAttribute("name", optionID);
-
-  const radioButton = a.appendChild(document.createElement("input"));
-  radioButton.setAttribute("type", "radio");
-  radioButton.setAttribute("name", "answer");
-  radioButton.setAttribute("value", newOptions);
-  radioButton.setAttribute("id", optionID);
-  radioButton.setAttribute("onclick", "validate()");
 
   const deleteIcon = a.appendChild(document.createElement("i"));
   deleteIcon.setAttribute("class", "fa-solid fa-trash modifier");
@@ -96,8 +96,29 @@ function delete_option(event) {
   validate();
 }
 
-function create_quiz_question() {
-  const questionFormElem = document.getElementById("question-form");
-  const formData = new FormData(questionFormElem);
-  console.log(formData);
-}
+document.addEventListener("DOMContentLoaded", async function () {
+  const formElem = document.getElementById("question-form");
+
+  formElem.addEventListener("submit", (e) => {
+    e.preventDefault();
+    new FormData(formElem);
+  });
+
+  formElem.addEventListener("formdata", (e) => {
+    const data = e.formData;
+    var questionData = {
+      "options": [],
+    };
+    for (const pair of data.entries()) {
+      const key = pair[0];
+      const value = pair[1];
+      if (key.indexOf("option") > -1) {
+        questionData.options.push(value);
+      } else {
+        questionData[key] = value;
+      }
+    }
+    const jsonData = JSON.stringify(questionData);
+    console.log(jsonData);
+  });
+}, false);
