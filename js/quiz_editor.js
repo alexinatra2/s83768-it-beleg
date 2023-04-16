@@ -63,6 +63,12 @@ function delete_option(event) {
   toDelete.innerHTML = "";
   toDelete.remove();
   newOptions--;
+  const newOptionElems = document.getElementsByClassName("new-option-link");
+  for (var i = 0; i < newOptionElems.length; i++) {
+    const newOptionElem = newOptionElems[i];
+    const newOptionLabel = newOptionElem.querySelector("label");
+    newOptionLabel.textContent = "Option " + OPTIONS_LABEL[i];
+  }
   validate();
 }
 
