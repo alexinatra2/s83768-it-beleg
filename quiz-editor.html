@@ -125,7 +125,7 @@
     </header>
 
     <main>
-      <form class="question">
+      <form id="question-form">
         <p>
           <label for="question">Question:</label>
           <input type="text" id="question" name="question" />
@@ -138,7 +138,7 @@
             </a>
           </li>
 
-          <li id="submit-button-label" class="pending">
+          <li id="submit-button-label" class="pending" onclick="create_quiz_question()">
             <label for="submit-button">Save</label>
           </li>
         </ul>

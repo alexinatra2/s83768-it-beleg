@@ -1,4 +1,3 @@
-var idCounter = 0;
 var newOptions = 0;
 const MIN_OPTIONS = 2;
 const MAX_OPTIONS = 4;
@@ -29,11 +28,10 @@ function add_empty_option() {
 
   const fragment = document.createDocumentFragment();
 
-  const optionID = "option-" + idCounter;
-  idCounter++;
-
   const li = fragment.appendChild(document.createElement("li"));
   li.setAttribute("class", "new-option");
+
+  const optionID = "option-" + newOptions;
   li.setAttribute("id", optionID);
 
   const a = li.appendChild(document.createElement("a"));
@@ -42,8 +40,19 @@ function add_empty_option() {
   const label = a.appendChild(document.createElement("label"));
   label.textContent = "Option " + OPTIONS_LABEL[newOptions] + ":";
 
-  const input = a.appendChild(document.createElement("input"));
-  input.setAttribute("type", "text");
+  const textInput = a.appendChild(document.createElement("input"));
+  textInput.setAttribute("type", "text");
+  textInput.setAttribute("name", optionID);
+
+  const radioLabel = a.appendChild(document.createElement("label"));
+  radioLabel.setAttribute("for", optionID);
+  radioLabel.textContent = "correct?";
+
+  const radioButton = a.appendChild(document.createElement("input"));
+  radioButton.setAttribute("type", "radio");
+  radioButton.setAttribute("name", "answer");
+  radioButton.setAttribute("value", newOptions);
+  radioButton.setAttribute("id", optionID);
 
   const deleteIcon = a.appendChild(document.createElement("i"));
   deleteIcon.setAttribute("class", "fa-solid fa-trash modifier");
@@ -68,9 +77,14 @@ function delete_option(event) {
     const newOptionElem = newOptionElems[i];
     const newOptionLabel = newOptionElem.querySelector("label");
     newOptionLabel.textContent = "Option " + OPTIONS_LABEL[i];
+    const newOptionRadioButton = newOptionElem.querySelector("input[type=\"radio\"]");
+    newOptionRadioButton.setAttribute("value", i);
   }
   validate();
 }
 
 function create_quiz_question() {
+  const questionFormElem = document.getElementById("question-form");
+  const formData = new FormData(questionFormElem);
+  console.log(formData);
 }
