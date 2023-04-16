@@ -8,10 +8,24 @@ const OPTIONS_LABEL = {
   3: "D",
 };
 
+function correctAmountOfOptions(options) {
+  return MIN_OPTIONS <= options && options <= MAX_OPTIONS;
+}
+
+function correctAnswerSelected() {
+  const radioButtonElems = document.querySelectorAll('input[type="radio"]');
+  for (var i = 0; i < radioButtonElems.length; i++) {
+    if (radioButtonElems[i].checked) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function validate() {
   const submit_button = document.getElementById("submit-button-label");
   const submit_button_classes = submit_button.classList;
-  if (MIN_OPTIONS <= newOptions && newOptions <= MAX_OPTIONS) {
+  if (correctAmountOfOptions(newOptions) && correctAnswerSelected()) {
     submit_button_classes.remove("pending");
     submit_button_classes.add("ready");
   } else {
@@ -44,15 +58,12 @@ function add_empty_option() {
   textInput.setAttribute("type", "text");
   textInput.setAttribute("name", optionID);
 
-  const radioLabel = a.appendChild(document.createElement("label"));
-  radioLabel.setAttribute("for", optionID);
-  radioLabel.textContent = "correct?";
-
   const radioButton = a.appendChild(document.createElement("input"));
   radioButton.setAttribute("type", "radio");
   radioButton.setAttribute("name", "answer");
   radioButton.setAttribute("value", newOptions);
   radioButton.setAttribute("id", optionID);
+  radioButton.setAttribute("onclick", "validate()");
 
   const deleteIcon = a.appendChild(document.createElement("i"));
   deleteIcon.setAttribute("class", "fa-solid fa-trash modifier");
@@ -77,7 +88,9 @@ function delete_option(event) {
     const newOptionElem = newOptionElems[i];
     const newOptionLabel = newOptionElem.querySelector("label");
     newOptionLabel.textContent = "Option " + OPTIONS_LABEL[i];
-    const newOptionRadioButton = newOptionElem.querySelector("input[type=\"radio\"]");
+    const newOptionRadioButton = newOptionElem.querySelector(
+      'input[type="radio"]',
+    );
     newOptionRadioButton.setAttribute("value", i);
   }
   validate();
