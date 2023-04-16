@@ -43,6 +43,7 @@
   box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em,
     rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
   transform: translateY(-3px) scale(1.1);
+  z-index: 2;
 }
 
 .option * {
@@ -75,6 +76,24 @@
 
 input[type="text"] {
   border: none;
+  outline: none;
   background-color: var(--bg-primary);
   color: var(--text-primary);
+}
+
+.new-option-link {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-gap: 1rem;
+  align-items: center;
+}
+
+.question input {
+  font-size: 1rem;
+  margin-right: auto;
+}
+
+.question p {
+  margin: 0 1rem;
+  align-items: center;
 }

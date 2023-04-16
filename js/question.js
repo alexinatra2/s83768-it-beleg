@@ -45,12 +45,7 @@ async function get_question() {
     {
       method: "GET",
       credentials: "include",
-      user: "test@gmail.com",
-      password: "secret"
-      // headers: {
-      //   "Access-Control-Allow-Origin": "no-cors"
-      // }
-    }
+    },
   );
   return await response.json();
 }
@@ -64,7 +59,7 @@ async function solve_question(solution) {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "no-cors"
+        "Access-Control-Allow-Origin": "no-cors",
       },
       body: JSON.stringify(solution),
     },
@@ -80,8 +75,8 @@ async function completed_questions() {
       method: "GET",
       credentials: "include",
       headers: {
-        "Access-Control-Allow-Origin": "no-cors"
-      }
+        "Access-Control-Allow-Origin": "no-cors",
+      },
     },
   );
   return await response.json();
