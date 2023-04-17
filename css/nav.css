@@ -96,6 +96,10 @@
   .nav-link {
     justify-content: center;
   }
+
+  .nav-link i {
+    margin: 0;
+  }
 }
 
 /* Large screens */

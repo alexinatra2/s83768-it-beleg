@@ -63,13 +63,6 @@
   display: none;
 }
 
-input {
-  position: relative;
-  border: none;
-  outline: none;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
 
 .new-option-link {
   width: 100%;
@@ -78,14 +71,21 @@ input {
   align-items: center;
 }
 
+input {
+  position: relative;
+  border: none;
+  outline: none;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
 .new-option-radio {
   width: 100%;
   display: none;
   pointer-events: none;
 }
 
-.new-option-text {
-  text-align: center;
+.new-option-text { text-align: center;
   font-size: 1rem;
   margin: 0;
   align-self: center;
@@ -110,3 +110,16 @@ input {
 .new-option-delete { 
   justify-self: center;
 }
+
+.question {
+  margin: 0;
+  padding: 0;
+}
+
+.question input {
+  font-size: 1rem;
+  height: 1rem;
+  width: 100%;
+  text-align: center;
+}
+

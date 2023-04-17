@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log(jsonData);
   });
 
-  const questionTitleElem = document.getElementById("question-title");  
+  const questionTitleElem = document.getElementById("question-title");
   addTextHint(questionTitleElem, "Question Title");
 
   const questionElem = document.getElementById("question");
