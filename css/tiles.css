@@ -2,7 +2,7 @@
   position: relative;
 
   padding: 0;
-  margin: 1.5rem;
+  margin: min(1.5rem, 5vw);
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -10,9 +10,9 @@
 }
 
 .tiles li {
-  margin: 0.5rem 0.5rem;
   height: 100%;
   width: 100%;
+  margin: 0.5rem 0;
   text-decoration: none;
 
   display: flex;
@@ -59,16 +59,12 @@
   pointer-events: all;
 }
 
-.selected {
-  background-color: var(--selected-primary);
-}
-
 #submit-button {
   display: none;
 }
 
-input[type="text"],
-input[type="radio"] {
+input {
+  position: relative;
   border: none;
   outline: none;
   background-color: var(--bg-primary);
@@ -76,13 +72,41 @@ input[type="radio"] {
 }
 
 .new-option-link {
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 3fr 1fr 1fr;
-  grid-gap: 1rem;
+  grid-template-columns: 3fr 1fr;
   align-items: center;
 }
 
-.question {
-  margin: 0 1rem;
-  align-items: center;
+.new-option-radio {
+  width: 100%;
+  display: none;
+  pointer-events: none;
+}
+
+.new-option-text {
+  text-align: center;
+  font-size: 1rem;
+  margin: 0;
+  align-self: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  transition: all var(--transition-speed);
+}
+
+@media (max-width: 600px) {
+  .new-option-text {
+    font-size: 0.5rem;
+  }
+}
+
+.tiles li:hover .new-option-text {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.new-option-delete { 
+  justify-self: center;
 }

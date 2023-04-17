@@ -131,18 +131,18 @@
 
     <main>
       <form id="question-edit-form">
-        <p class="question">
-          <label for="question-title">Question Title:</label>
-          <input type="text" id="question-title" name="title" />
-        </p>
-        <p class="question">
-          <label for="question">Question:</label>
-          <input type="text" id="question" name="text" />
-        </p>
+        <section>
+          <h2 class="question">
+            <input type="text" id="question-title" name="title" />
+          </h2>
+          <p class="question">
+            <input type="text" id="question" name="text" />
+          </p>
+        </section>
 
         <ul class="tiles" id="options">
-          <li id="add-button" class="add-button" onclick="add_empty_option()">
-            <a href="#" class="modifier">
+          <li id="add-button" class="add-button" onclick="addEmptyOption()">
+            <a href="#">
               <i class="fa-solid fa-plus"></i>
             </a>
           </li>

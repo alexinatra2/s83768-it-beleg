@@ -35,7 +35,7 @@ function validate() {
 }
 
 // create an empty option element in the DOM
-function add_empty_option() {
+function addEmptyOption() {
   if (newOptions >= MAX_OPTIONS) {
     throw "attempted to create more than " + MAX_OPTIONS + " options";
   }
@@ -45,29 +45,32 @@ function add_empty_option() {
   const li = fragment.appendChild(document.createElement("li"));
   li.setAttribute("class", "new-option");
 
-  const optionID = "option-" + newOptions;
+  const optionNumber = newOptions + 1;
+  const optionID = "option-" + optionNumber;
   li.setAttribute("id", optionID);
 
   const a = li.appendChild(document.createElement("a"));
   a.setAttribute("class", "new-option-link");
+  a.setAttribute("onclick", "chooseCorrectOption(event)");
 
   const radioButton = a.appendChild(document.createElement("input"));
   radioButton.setAttribute("type", "radio");
   radioButton.setAttribute("name", "answer");
-  radioButton.setAttribute("value", "[" + newOptions + "]");
+  radioButton.setAttribute("value", "[" + optionNumber + "]");
   radioButton.setAttribute("id", optionID);
   radioButton.setAttribute("onclick", "validate()");
-
-  const label = a.appendChild(document.createElement("label"));
-  label.textContent = "Option " + OPTIONS_LABEL[newOptions] + ":";
+  radioButton.setAttribute("class", "new-option-radio");
 
   const textInput = a.appendChild(document.createElement("input"));
   textInput.setAttribute("type", "text");
   textInput.setAttribute("name", optionID);
+  textInput.setAttribute("class", "new-option-text");
+  const textHint = "Option " + OPTIONS_LABEL[newOptions];
+  addTextHint(textInput, textHint);
 
   const deleteIcon = a.appendChild(document.createElement("i"));
-  deleteIcon.setAttribute("class", "fa-solid fa-trash modifier");
-  deleteIcon.setAttribute("onclick", "delete_option(event)");
+  deleteIcon.setAttribute("class", "fa-solid fa-trash new-option-delete");
+  deleteIcon.setAttribute("onclick", "deleteOption(event)");
 
   const addButtonElem = document.getElementById("add-button");
 
@@ -77,22 +80,52 @@ function add_empty_option() {
   validate();
 }
 
-function delete_option(event) {
+function chooseCorrectOption(event) {
+  var elem = event.target;
+  if (!elem.classList.contains(".new-option-link")) {
+    elem = elem.parentNode;
+  }
+
+  const options = document.getElementsByClassName(".new-option-link");
+  for (var i = 0; i < options.length; i++) {
+    const option = options[i];
+    option.classList.remove("selected");
+  }
+
+  elem.classList.add("selected");
+  const radioElem = elem.querySelector(".new-option-radio");
+  radioElem.checked = true;
+
+  const submitButtonElem = document.querySelector(".ready,.pending");
+  const submitButtonElemClasses = submitButtonElem.classList;
+  submitButtonElemClasses.remove("pending");
+  submitButtonElemClasses.add("ready");
+}
+
+function addTextHint(elem, hintText) {
+  if (elem.value == "") {
+    elem.value = hintText;
+  }
+
+  elem.onfocus = function () {
+    if (elem.value == hintText) {
+      elem.value = "";
+    }
+  };
+
+  elem.onblur = function () {
+    if (elem.value == "") {
+      elem.value = hintText;
+    }
+  };
+}
+
+function deleteOption(event) {
   const elem = event.target;
   const toDelete = elem.parentNode.parentNode;
   toDelete.innerHTML = "";
   toDelete.remove();
   newOptions--;
-  const newOptionElems = document.getElementsByClassName("new-option-link");
-  for (var i = 0; i < newOptionElems.length; i++) {
-    const newOptionElem = newOptionElems[i];
-    const newOptionLabel = newOptionElem.querySelector("label");
-    newOptionLabel.textContent = "Option " + OPTIONS_LABEL[i];
-    const newOptionRadioButton = newOptionElem.querySelector(
-      'input[type="radio"]',
-    );
-    newOptionRadioButton.setAttribute("value", i);
-  }
   validate();
 }
 
@@ -121,4 +154,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     const jsonData = JSON.stringify(questionData);
     console.log(jsonData);
   });
+
+  const questionTitleElem = document.getElementById("question-title");  
+  addTextHint(questionTitleElem, "Question Title");
+
+  const questionElem = document.getElementById("question");
+  addTextHint(questionElem, "Question");
 }, false);

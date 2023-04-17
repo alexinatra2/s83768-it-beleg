@@ -21,11 +21,15 @@ body {
   padding: 0;
 }
 
-main, header {
+main,
+header {
   position: relative;
   overflow-x: hidden;
 }
 
+h1 {
+  text-align: center;
+}
 
 body::-webkit-scrollbar {
   width: 0.25rem;
@@ -45,6 +49,12 @@ body::-webkit-scrollbar-thumb {
   header {
     left: 5rem;
     width: calc(100% - 5rem);
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  main {
+    min-height: 100%;
   }
 }
 
