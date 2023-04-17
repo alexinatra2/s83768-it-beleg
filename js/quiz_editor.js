@@ -97,7 +97,7 @@ function delete_option(event) {
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
-  const formElem = document.getElementById("question-form");
+  const formElem = document.getElementById("question-edit-form");
 
   formElem.addEventListener("submit", (e) => {
     e.preventDefault();

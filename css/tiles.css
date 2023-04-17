@@ -41,15 +41,16 @@
   z-index: 2;
 }
 
-.option * {
-  pointer-events: none;
-}
-
 .option input {
   display: none;
 }
 
-#submit-button-label,
+.option * {
+  pointer-events: none;
+}
+
+.ready,
+.pending,
 .add-button {
   grid-column: span 2;
 }

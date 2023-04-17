@@ -1,21 +1,20 @@
-var selection_pending = true;
 var env;
 
-async function load_env() {
+async function loadEnv() {
   env = await fetch("./.env.json").then((response) => response.json());
   env.API_BASE_URL = env.WEB_QUIZ_URL + env.WEB_QUIZ_API_PATH;
 }
 
-function populate_options(data) {
+function populateOptions(data) {
   const optionsElem = document.getElementById("options");
 
   const options = data.options;
   for (var i = 0; i < options.length; i++) {
-    create_option(optionsElem, i, options[i]);
+    createOption(optionsElem, i, options[i]);
   }
 }
 
-function create_option(elem, index, content) {
+function createOption(elem, index, content) {
   const fragment = document.createDocumentFragment();
 
   const li = fragment.appendChild(document.createElement("li"));
@@ -33,13 +32,13 @@ function create_option(elem, index, content) {
   label.setAttribute("for", optionID);
   label.textContent = content;
 
-  const submitElem = document.getElementById("submit-button-label");
+  const submitElem = document.querySelector(".pending,.ready");
 
   elem.insertBefore(fragment, submitElem);
 }
 
 // get a question from the web-quizzes api
-async function get_question() {
+async function getQuiz() {
   const response = await fetch(
     env.API_BASE_URL + "2",
     {
@@ -51,7 +50,7 @@ async function get_question() {
 }
 
 // solve a question from the web-quizzes api
-async function solve_question(solution) {
+async function solveQuiz(solution) {
   const response = await fetch(
     env.API_BASE_URL + "2/solve",
     {
@@ -68,7 +67,7 @@ async function solve_question(solution) {
 }
 
 // get all quiz questions that have been completed so far
-async function completed_questions() {
+async function completedQuizzes() {
   const response = await fetch(
     env.API_BASE_URL + "completed",
     {
@@ -82,7 +81,18 @@ async function completed_questions() {
   return await response.json();
 }
 
+async function findAvailableQuizIds() {}
+
 document.addEventListener("DOMContentLoaded", async function () {
-  await load_env();
-  populate_options(env.test_data);
+  await loadEnv();
+  populateOptions(env.test_data);
+  const formElem = document.getElementById("question-solve-form");
+  formElem.addEventListener("submit", (e) => {
+    e.preventDefault();
+    new FormData();
+  });
+  formElem.addEventListener("formdata", (e) => {
+    const data = e.formData;
+    return data;
+  });
 }, false);
