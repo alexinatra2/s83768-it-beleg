@@ -1,12 +1,8 @@
-#question {
-  margin: 1rem;
-}
-
 .tiles {
-  height: 100%;
-  width: 100%;
+  position: relative;
+
   padding: 0;
-  margin: 0;
+  margin: 1.5rem;
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -17,6 +13,7 @@
   margin: 0.5rem 0.5rem;
   height: 100%;
   width: 100%;
+  text-decoration: none;
 
   display: flex;
   flex-direction: column;
@@ -29,7 +26,6 @@
   border-radius: 20px;
   box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem,
     rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
-  text-decoration: none;
 }
 
 .tiles li:hover {
@@ -37,7 +33,7 @@
   color: var(--text-secondary);
   box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em,
     rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
-  transform: translateY(-3px) scale(1.1);
+  transform: scale(1.1);
   z-index: 2;
 }
 
