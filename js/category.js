@@ -14,4 +14,6 @@ function changeCategory(newCategory) {
   localStorage.setItem("category", newCategory);
 }
 
-setCategory();
+document.addEventListener("DOMContentLoaded", function () {
+  setCategory();
+});
