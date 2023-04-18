@@ -16,15 +16,40 @@
 }
 
 body {
-  background-color: var(--bg-main);
+  background-color: var(--bg-primary);
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+main {
+  margin-top: 1rem;
+  min-height: 100%;
+  background-color: gray;
+  background-blend-mode: multiply;
+  background-size: cover;
 }
 
 main,
 header {
   position: relative;
   overflow-x: hidden;
+}
+
+main.category-general {
+  background-image: url(../images/general.jpg);
+}
+
+main.category-maths {
+  background-image: url(../images/maths.jpg);
+}
+
+main.category-it {
+  background-image: url(../images/it.jpg);
+}
+
+main.category-music {
+  background-image: url(../images/music.jpg);
 }
 
 h1 {
@@ -49,12 +74,6 @@ body::-webkit-scrollbar-thumb {
   header {
     left: 5rem;
     width: calc(100% - 5rem);
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  main {
-    min-height: 100%;
   }
 }
 

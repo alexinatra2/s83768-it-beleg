@@ -45,6 +45,7 @@
     <script src="js/main.js"></script>
     <script src="js/quiz_editor.js"></script>
     <script defer src="js/theme.js"></script>
+    <script src="js/category.js"></script>
 
     <!-- <script type="text/javascript"> -->
     <!--   if ("serviceWorker" in navigator) { -->
@@ -61,8 +62,7 @@
     ></script>
   </head>
 
-  <body class="dark">
-    <!-- navigation bar  -->
+  <body>
     <nav class="navbar">
       <!-- unordered list containing the "actual nav" -->
       <ul class="navbar-nav">
@@ -75,30 +75,63 @@
 
         <!-- list item within the nav element -->
         <li class="nav-item">
-          <a href="question.html" class="nav-link">
-            <i class="fa-solid fa-earth-europe"></i>
-            <span class="link-text">Allgemein</span>
+          <a
+            href="question.html"
+            class="nav-link"
+            onclick="changeCategory('general')"
+          >
+            <i
+              class="fa-solid fa-earth-europe"
+              onclick="changeCategory('general')"
+            ></i>
+            <span class="link-text" onclick="changeCategory('general')"
+              >Allgemein</span
+            >
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="question.html" class="nav-link">
-            <i class="fa-solid fa-square-root-variable"></i>
-            <span class="link-text">Mathematik</span>
+          <a
+            href="question.html"
+            class="nav-link"
+            onclick="changeCategory('maths')"
+          >
+            <i
+              class="fa-solid fa-square-root-variable"
+              onclick="changeCategory('maths')"
+            ></i>
+            <span class="link-text" onclick="changeCategory('maths')"
+              >Mathematik</span
+            >
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="question.html" class="nav-link">
-            <i class="fa-brands fa-firefox-browser"></i>
-            <span class="link-text">Internettechnologien</span>
+          <a
+            href="question.html"
+            class="nav-link"
+            onclick="changeCategory('it')"
+          >
+            <i
+              class="fa-brands fa-firefox-browser"
+              onclick="changeCategory('it')"
+            ></i>
+            <span class="link-text" onclick="changeCategory('it')"
+              >Internettechnologien</span
+            >
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="question.html" class="nav-link">
-            <i class="fa-solid fa-music"></i>
-            <span class="link-text">Musik</span>
+          <a
+            href="question.html"
+            class="nav-link"
+            onclick="changeCategory('music')"
+          >
+            <i class="fa-solid fa-music" onclick="changeCategory('music')"></i>
+            <span class="link-text" onclick="changeCategory('music')"
+              >Musik</span
+            >
           </a>
         </li>
         <!-- <li class="nav-item"> -->
