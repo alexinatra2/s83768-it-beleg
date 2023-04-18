@@ -44,6 +44,9 @@ async function getQuiz() {
     {
       method: "GET",
       credentials: "include",
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      }
     },
   );
   return await response.json();

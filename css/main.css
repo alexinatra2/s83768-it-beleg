@@ -62,7 +62,7 @@ header {
   height: 5rem;
   background: var(--bg-header-start);
   color: var(--text-secondary);
-  border-bottom: 1rem solid var(--bg-header-end);
+  /* border-bottom: 1rem solid var(--bg-header-end); */
 }
 
 @keyframes color-rotate {
@@ -70,12 +70,12 @@ header {
     filter: hue-rotate(0deg);
   }
   to {
-    filter: hue-rotate(360deg);
+    filter: hue-rotate(-20deg);
   }
 }
 
 header:hover {
-  animation: color-rotate 20s;
+  animation: color-rotate 2s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
