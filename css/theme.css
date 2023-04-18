@@ -21,14 +21,14 @@
 }
 
 .solar {
-  --bg-main: #ffffe1;
-  --bg-header-start: #e3c368;
-  --bg-primary: #fdf6e3;
-  --bg-secondary: #f5e5b8;
-  --text-primary: #576e75;
-  --text-secondary: #35535c;
-  --selected-primary: #6b3b00;
-  --selected-secondary: #fac125;
+  --bg-main: #ffffe0;
+  --bg-header-start: #87cfeb;
+  --bg-primary: #f6deb3;
+  --bg-secondary: #91846a;
+  --text-primary: #66563f;
+  --text-secondary: #66563f;
+  --selected-primary: #9bcd31;
+  --selected-secondary: #9bcd31;
 }
 
 #darkIcon {

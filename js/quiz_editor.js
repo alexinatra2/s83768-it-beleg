@@ -152,11 +152,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     }
     const jsonData = JSON.stringify(questionData);
+    jsonData["title"] = "title";
     console.log(jsonData);
   });
-
-  const questionTitleElem = document.getElementById("question-title");
-  addTextHint(questionTitleElem, "Question Title");
 
   const questionElem = document.getElementById("question");
   addTextHint(questionElem, "Question");
