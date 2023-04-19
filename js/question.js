@@ -16,26 +16,20 @@ function populateOptions(data) {
 }
 
 function createOption(elem, index, content) {
-  const fragment = document.createDocumentFragment();
-
-  const li = fragment.appendChild(document.createElement("li"));
+  const li = document.createElement("li");
   li.setAttribute("class", "option");
   li.setAttribute("onclick", "check(event)");
 
   const optionID = "option-" + index;
-  const input = li.appendChild(document.createElement("input"));
-  input.setAttribute("id", optionID);
-  input.setAttribute("type", "radio");
-  input.setAttribute("name", "question");
-  input.setAttribute("value", index);
 
-  const label = li.appendChild(document.createElement("label"));
-  label.setAttribute("for", optionID);
-  label.textContent = content;
+  li.innerHTML = `
+    <input id=${optionID} type="radio" name="question" value=${index} />
+    <label for=${optionID}>${content}</label>
+  `;
 
   const submitElem = document.querySelector(".pending,.ready");
 
-  elem.insertBefore(fragment, submitElem);
+  elem.insertBefore(li, submitElem);
 }
 
 function baseHeaders() {

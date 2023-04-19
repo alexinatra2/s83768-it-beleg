@@ -40,42 +40,28 @@ function addEmptyOption() {
     throw "attempted to create more than " + MAX_OPTIONS + " options";
   }
 
-  const fragment = document.createDocumentFragment();
-
-  const li = fragment.appendChild(document.createElement("li"));
-  li.setAttribute("class", "new-option");
-
   const optionNumber = newOptions + 1;
   const optionID = "option-" + optionNumber;
+  const li = document.createElement("li"); 
+  li.setAttribute("class", "new-option");
   li.setAttribute("id", optionID);
 
-  const a = li.appendChild(document.createElement("a"));
-  a.setAttribute("class", "new-option-link");
-  a.setAttribute("onclick", "chooseCorrectOption(event)");
+  li.innerHTML = `
+    <a class="new-option-link" onclick="chooseCorrectOption(event)">
+      <input type="radio" name="answer" value="[${optionNumber}]" id="${optionID}" onclick=validate() class="new-option-radio" />
+      <input type="text" name="${optionID}" class="new-option-text" />
+      <i class="fa-solid fa-trash new-option-delete" onclick="deleteOption(event)"></i>
+    </a>
+  `;
 
-  const radioButton = a.appendChild(document.createElement("input"));
-  radioButton.setAttribute("type", "radio");
-  radioButton.setAttribute("name", "answer");
-  radioButton.setAttribute("value", "[" + optionNumber + "]");
-  radioButton.setAttribute("id", optionID);
-  radioButton.setAttribute("onclick", "validate()");
-  radioButton.setAttribute("class", "new-option-radio");
-
-  const textInput = a.appendChild(document.createElement("input"));
-  textInput.setAttribute("type", "text");
-  textInput.setAttribute("name", optionID);
-  textInput.setAttribute("class", "new-option-text");
+  const textInput = li.querySelector('input[type="text"]');
   const textHint = "Option " + OPTIONS_LABEL[newOptions];
   addTextHint(textInput, textHint);
-
-  const deleteIcon = a.appendChild(document.createElement("i"));
-  deleteIcon.setAttribute("class", "fa-solid fa-trash new-option-delete");
-  deleteIcon.setAttribute("onclick", "deleteOption(event)");
 
   const addButtonElem = document.getElementById("add-button");
 
   const optionsElem = document.getElementById("options");
-  optionsElem.insertBefore(fragment, addButtonElem);
+  optionsElem.insertBefore(li, addButtonElem);
   newOptions++;
   validate();
 }
