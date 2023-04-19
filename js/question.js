@@ -1,7 +1,8 @@
-var env;
+let env;
+const envPath = "./env.json";
 
 async function loadEnv() {
-  env = await fetch("./.env.json").then((response) => response.json());
+  env = await fetch(envPath).then((response) => response.json());
   env.API_BASE_URL = env.WEB_QUIZ_URL + env.WEB_QUIZ_API_PATH;
 }
 
@@ -9,9 +10,9 @@ function populateOptions(data) {
   const optionsElem = document.getElementById("options");
 
   const options = data.options;
-  for (var i = 0; i < options.length; i++) {
+  Object.keys(options).forEach((i) => {
     createOption(optionsElem, i, options[i]);
-  }
+  })
 }
 
 function createOption(elem, index, content) {
@@ -37,32 +38,34 @@ function createOption(elem, index, content) {
   elem.insertBefore(fragment, submitElem);
 }
 
+function baseHeaders() {
+  const headers = new Headers();
+  headers.set("Authorization", "Basic" + btoa(env.USER + ":" + env.PASSWORD));
+  return headers;
+}
+
 // get a question from the web-quizzes api
-async function getQuiz() {
+async function getQuiz(quizID) {
   const response = await fetch(
-    env.API_BASE_URL + "2",
+    env.API_BASE_URL + quizID,
     {
       method: "GET",
-      credentials: "include",
-      headers: {
-        "Access-Control-Allow-Origin": "*"
-      }
+      headers: baseHeaders()
     },
   );
   return await response.json();
 }
 
 // solve a question from the web-quizzes api
-async function solveQuiz(solution) {
-  const response = await fetch(
-    env.API_BASE_URL + "2/solve",
+async function solveQuiz (quizID, solution) {
+  const url = env.API_BASE_URL + quizID + "/solve";
+  const headers = baseHeaders();
+  headers.set
+  headers.set
+  const response = await fetch(url,
     {
       method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "no-cors",
-      },
+      headers: headers,
       body: JSON.stringify(solution),
     },
   );
