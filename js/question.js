@@ -6,9 +6,10 @@ async function loadEnv() {
   env.API_BASE_URL = env.WEB_QUIZ_URL + env.WEB_QUIZ_API_PATH;
 }
 
-function populateOptions(data) {
+function fillQuestion(data) {
+  const questionElem = document.getElementById("question");
+  questionElem.textContent = data.text;
   const optionsElem = document.getElementById("options");
-
   const options = data.options;
   Object.keys(options).forEach((i) => {
     createOption(optionsElem, i, options[i]);
@@ -20,10 +21,12 @@ function createOption(elem, index, content) {
   li.setAttribute("class", "option");
   li.setAttribute("onclick", "check(event)");
 
-  const optionID = "option-" + index;
+  var optionIndex = index;
+  optionIndex++;
+  const optionID = "option-" + optionIndex;
 
   li.innerHTML = `
-    <input id=${optionID} type="radio" name="question" value=${index} />
+    <input id=${optionID} type="radio" name="question" value=${optionIndex} />
     <label for=${optionID}>${content}</label>
   `;
 
@@ -84,7 +87,7 @@ async function findAvailableQuizIds() {}
 
 document.addEventListener("DOMContentLoaded", async function () {
   await loadEnv();
-  populateOptions(env.test_data);
+  fillQuestion(await getQuiz(3));
   const formElem = document.getElementById("question-solve-form");
   formElem.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -96,7 +99,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     for (const pair of data.entries()) {
       jsonData[pair[0]] = pair[1];
     }
-    const response = await solveQuiz(2, "[" + jsonData["question"] + "]");
+    console.log(jsonData.question);
+    const response = await solveQuiz(3, "[" + jsonData.question + "]");
     console.log(response);
   });
 }, false);
