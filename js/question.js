@@ -34,7 +34,7 @@ function createOption(elem, index, content) {
 
 function baseHeaders() {
   const headers = new Headers();
-  headers.set("Authorization", "Basic" + btoa(env.USER + ":" + env.PASSWORD));
+  headers.set("Authorization", "Basic " + btoa(env.USER + ":" + env.PASSWORD));
   return headers;
 }
 
@@ -54,13 +54,12 @@ async function getQuiz(quizID) {
 async function solveQuiz (quizID, solution) {
   const url = env.API_BASE_URL + quizID + "/solve";
   const headers = baseHeaders();
-  headers.set
-  headers.set
+  headers.set("Content-Type", "application/json");
   const response = await fetch(url,
     {
       method: "POST",
       headers: headers,
-      body: JSON.stringify(solution),
+      body: solution
     },
   );
   return await response.json();
@@ -89,10 +88,15 @@ document.addEventListener("DOMContentLoaded", async function () {
   const formElem = document.getElementById("question-solve-form");
   formElem.addEventListener("submit", (e) => {
     e.preventDefault();
-    new FormData();
+    new FormData(formElem);
   });
-  formElem.addEventListener("formdata", (e) => {
+  formElem.addEventListener("formdata", async function (e) {
     const data = e.formData;
-    return data;
+    let jsonData = {};
+    for (const pair of data.entries()) {
+      jsonData[pair[0]] = pair[1];
+    }
+    const response = await solveQuiz(2, "[" + jsonData["question"] + "]");
+    console.log(response);
   });
 }, false);
