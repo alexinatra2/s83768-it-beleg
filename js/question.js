@@ -1,93 +1,95 @@
 let env;
-const envPath = "./env.json";
 
-async function loadEnv() {
+async function loadEnv(envPath) {
   env = await fetch(envPath).then((response) => response.json());
   env.API_BASE_URL = env.WEB_QUIZ_URL + env.WEB_QUIZ_API_PATH;
+  return env;
 }
 
-function fillQuestion(data) {
-  const questionElem = document.getElementById("question");
-  questionElem.textContent = data.text;
-  const optionsElem = document.getElementById("options");
-  const options = data.options;
-  Object.keys(options).forEach((i) => {
-    createOption(optionsElem, i, options[i]);
-  })
-}
+class Question {
+  constructor(questionID) {
+    this.headers = new Headers();
+    this.headers.set(
+      "Authorization",
+      "Basic " + btoa(env.USER + ":" + env.PASSWORD),
+    );
+    this.questionID = questionID;
+  }
 
-function createOption(elem, index, content) {
-  const li = document.createElement("li");
-  li.setAttribute("class", "option");
-  li.setAttribute("onclick", "check(event)");
+  fill() {
+    const questionElem = document.getElementById("question");
+    questionElem.textContent = this.data.text;
+    const optionsElem = document.getElementById("options");
+    const options = data.options;
+    Object.keys(options).forEach((i) => {
+      this.createOption(optionsElem, i, options[i]);
+    });
+  }
 
-  var optionIndex = index;
-  optionIndex++;
-  const optionID = "option-" + optionIndex;
+  createOption(elem, index, content) {
+    const li = document.createElement("li");
+    li.setAttribute("class", "option");
+    li.setAttribute("onclick", "check(event)");
 
-  li.innerHTML = `
+    var optionIndex = index;
+    optionIndex++;
+    const optionID = "option-" + optionIndex;
+
+    li.innerHTML = `
     <input id=${optionID} type="radio" name="question" value=${optionIndex} />
     <label for=${optionID}>${content}</label>
   `;
 
-  const submitElem = document.querySelector(".pending,.ready");
+    const submitElem = document.querySelector(".pending,.ready");
 
-  elem.insertBefore(li, submitElem);
-}
+    elem.insertBefore(li, submitElem);
+  }
 
-function baseHeaders() {
-  const headers = new Headers();
-  headers.set("Authorization", "Basic " + btoa(env.USER + ":" + env.PASSWORD));
-  return headers;
-}
+  // get a question from the web-quizzes api
+  async fetch(quizID) {
+    const response = await fetch(
+      env.API_BASE_URL + quizID,
+      {
+        method: "GET",
+        headers: baseHeaders(),
+      },
+    );
+    return await response.json();
+  }
 
-// get a question from the web-quizzes api
-async function getQuiz(quizID) {
-  const response = await fetch(
-    env.API_BASE_URL + quizID,
-    {
-      method: "GET",
-      headers: baseHeaders()
-    },
-  );
-  return await response.json();
-}
-
-// solve a question from the web-quizzes api
-async function solveQuiz (quizID, solution) {
-  const url = env.API_BASE_URL + quizID + "/solve";
-  const headers = baseHeaders();
-  headers.set("Content-Type", "application/json");
-  const response = await fetch(url,
-    {
+  // solve a question from the web-quizzes api
+  async solve(quizID, solution) {
+    const url = env.API_BASE_URL + quizID + "/solve";
+    const headers = baseHeaders();
+    headers.set("Content-Type", "application/json");
+    const response = await fetch(url, {
       method: "POST",
       headers: headers,
-      body: solution
-    },
-  );
-  return await response.json();
-}
+      body: solution,
+    });
+    return await response.json();
+  }
 
-// get all quiz questions that have been completed so far
-async function completedQuizzes() {
-  const response = await fetch(
-    env.API_BASE_URL + "completed",
-    {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Access-Control-Allow-Origin": "no-cors",
+  // get all quiz questions that have been completed so far
+  async getCompleted() {
+    const response = await fetch(
+      env.API_BASE_URL + "completed",
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Access-Control-Allow-Origin": "no-cors",
+        },
       },
-    },
-  );
-  return await response.json();
+    );
+    return await response.json();
+  }
 }
-
-async function findAvailableQuizIds() {}
 
 document.addEventListener("DOMContentLoaded", async function () {
-  await loadEnv();
-  fillQuestion(await getQuiz(3));
+  const env = await loadEnv("./env.json");
+  const question = new Question(env);
+  quiestion.fill(await getQuiz(3));
   const formElem = document.getElementById("question-solve-form");
   formElem.addEventListener("submit", (e) => {
     e.preventDefault();
