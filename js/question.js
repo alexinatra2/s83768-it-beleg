@@ -16,51 +16,46 @@ class Question {
     this.questionID = questionID;
   }
 
-  fill() {
+  render() {
     const questionElem = document.getElementById("question");
     questionElem.textContent = this.data.text;
     const optionsElem = document.getElementById("options");
-    const options = data.options;
+    const options = this.data.options;
     Object.keys(options).forEach((i) => {
-      this.createOption(optionsElem, i, options[i]);
+      const li = document.createElement("li");
+      li.setAttribute("class", "option");
+      li.setAttribute("onclick", "check(event)");
+
+      const optionIndex = Number(i) + 1;
+      const optionID = "option-" + optionIndex;
+
+      li.innerHTML = `
+    <input id=${optionID} type="radio" name="question" value=${optionIndex} />
+    <label for=${optionID}>${options[i]}</label>
+  `;
+
+      const submitElem = document.querySelector(".pending,.ready");
+
+      optionsElem.insertBefore(li, submitElem);
     });
   }
 
-  createOption(elem, index, content) {
-    const li = document.createElement("li");
-    li.setAttribute("class", "option");
-    li.setAttribute("onclick", "check(event)");
-
-    var optionIndex = index;
-    optionIndex++;
-    const optionID = "option-" + optionIndex;
-
-    li.innerHTML = `
-    <input id=${optionID} type="radio" name="question" value=${optionIndex} />
-    <label for=${optionID}>${content}</label>
-  `;
-
-    const submitElem = document.querySelector(".pending,.ready");
-
-    elem.insertBefore(li, submitElem);
-  }
-
   // get a question from the web-quizzes api
-  async fetch(quizID) {
+  async fetch() {
     const response = await fetch(
-      env.API_BASE_URL + quizID,
+      env.API_BASE_URL + this.questionID,
       {
         method: "GET",
-        headers: baseHeaders(),
+        headers: this.headers,
       },
     );
-    return await response.json();
+    this.data = await response.json();
   }
 
   // solve a question from the web-quizzes api
-  async solve(quizID, solution) {
-    const url = env.API_BASE_URL + quizID + "/solve";
-    const headers = baseHeaders();
+  async solve(solution) {
+    const url = env.API_BASE_URL + this.questionID + "/solve";
+    const headers = this.headers;
     headers.set("Content-Type", "application/json");
     const response = await fetch(url, {
       method: "POST",
@@ -76,10 +71,7 @@ class Question {
       env.API_BASE_URL + "completed",
       {
         method: "GET",
-        credentials: "include",
-        headers: {
-          "Access-Control-Allow-Origin": "no-cors",
-        },
+        headers: this.headers
       },
     );
     return await response.json();
@@ -87,9 +79,10 @@ class Question {
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
-  const env = await loadEnv("./env.json");
-  const question = new Question(env);
-  quiestion.fill(await getQuiz(3));
+  await loadEnv("./env.json");
+  const question = new Question(2);
+  await question.fetch();
+  question.render();
   const formElem = document.getElementById("question-solve-form");
   formElem.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -102,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       jsonData[pair[0]] = pair[1];
     }
     console.log(jsonData.question);
-    const response = await solveQuiz(3, "[" + jsonData.question + "]");
+    const response = await question.solve("[" + jsonData.question + "]");
     console.log(response);
   });
 }, false);
