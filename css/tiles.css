@@ -9,7 +9,7 @@
   grid-gap: 1rem;
 }
 
-.tiles li {
+.tiles li,#submit-button-label {
   height: 100%;
   width: 100%;
   margin: 0.5rem 0;
@@ -45,12 +45,6 @@
   pointer-events: none;
 }
 
-.ready,
-.pending,
-.add-button {
-  grid-column: span 2;
-}
-
 .pending {
   pointer-events: none;
 }
@@ -59,10 +53,13 @@
   pointer-events: all;
 }
 
+#submit-button-label { 
+  margin: min(1.5rem, 5vw);
+}
+
 #submit-button {
   display: none;
 }
-
 
 .new-option-link {
   width: 100%;

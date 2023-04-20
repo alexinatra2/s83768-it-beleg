@@ -7,13 +7,21 @@ async function loadEnv(envPath) {
 }
 
 class Question {
-  constructor(questionID) {
+  constructor() {
     this.headers = new Headers();
     this.headers.set(
       "Authorization",
       "Basic " + btoa(env.USER + ":" + env.PASSWORD),
     );
+  }
+
+  setID(questionID) {
     this.questionID = questionID;
+  }
+
+  clear() {
+    const optionsElem = document.getElementById("options");
+    optionsElem.innerHTML = "";
   }
 
   render() {
@@ -26,17 +34,13 @@ class Question {
       li.setAttribute("class", "option");
       li.setAttribute("onclick", "check(event)");
 
-      const optionIndex = Number(i) + 1;
-      const optionID = "option-" + optionIndex;
+      const optionID = "option-" + i;
 
       li.innerHTML = `
-    <input id=${optionID} type="radio" name="question" value=${optionIndex} />
+    <input id=${optionID} type="radio" name="solution" value=${i} />
     <label for=${optionID}>${options[i]}</label>
   `;
-
-      const submitElem = document.querySelector(".pending,.ready");
-
-      optionsElem.insertBefore(li, submitElem);
+      optionsElem.appendChild(li);
     });
   }
 
@@ -57,10 +61,11 @@ class Question {
     const url = env.API_BASE_URL + this.questionID + "/solve";
     const headers = this.headers;
     headers.set("Content-Type", "application/json");
+    const formattedSolution = `[${solution}]`;
     const response = await fetch(url, {
       method: "POST",
       headers: headers,
-      body: solution,
+      body: formattedSolution,
     });
     return await response.json();
   }
@@ -71,7 +76,7 @@ class Question {
       env.API_BASE_URL + "completed",
       {
         method: "GET",
-        headers: this.headers
+        headers: this.headers,
       },
     );
     return await response.json();
@@ -80,7 +85,8 @@ class Question {
 
 document.addEventListener("DOMContentLoaded", async function () {
   await loadEnv("./env.json");
-  const question = new Question(2);
+  const question = new Question();
+  question.setID(4);
   await question.fetch();
   question.render();
   const formElem = document.getElementById("question-solve-form");
@@ -90,12 +96,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
   formElem.addEventListener("formdata", async function (e) {
     const data = e.formData;
-    let jsonData = {};
-    for (const pair of data.entries()) {
-      jsonData[pair[0]] = pair[1];
-    }
-    console.log(jsonData.question);
-    const response = await question.solve("[" + jsonData.question + "]");
+    const response = await question.solve(data.get("solution"));
     console.log(response);
+    question.clear();
   });
 }, false);
