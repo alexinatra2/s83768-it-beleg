@@ -18,17 +18,17 @@ class Question {
   setID(questionID) {
     this.questionID = questionID;
   }
-
-  clear() {
-    const optionsElem = document.getElementById("options");
-    optionsElem.innerHTML = "";
+  
+  incrementQuestionID() {
+    this.setID(this.questionID + 1); 
   }
 
   render() {
     const questionElem = document.getElementById("question");
     questionElem.textContent = this.data.text;
-    const optionsElem = document.getElementById("options");
     const options = this.data.options;
+    const optionsElem = document.getElementById("options");
+    optionsElem.innerHTML = "";
     Object.keys(options).forEach((i) => {
       const li = document.createElement("li");
       li.setAttribute("class", "option");
@@ -86,7 +86,7 @@ class Question {
 document.addEventListener("DOMContentLoaded", async function () {
   await loadEnv("./env.json");
   const question = new Question();
-  question.setID(4);
+  question.setID(2);
   await question.fetch();
   question.render();
   const formElem = document.getElementById("question-solve-form");
@@ -95,9 +95,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     new FormData(formElem);
   });
   formElem.addEventListener("formdata", async function (e) {
-    const data = e.formData;
-    const response = await question.solve(data.get("solution"));
+    const response = await question.solve(e.formData.get("solution"));
     console.log(response);
-    question.clear();
+    question.incrementQuestionID();
+    await question.fetch();
+    question.render();
   });
 }, false);
