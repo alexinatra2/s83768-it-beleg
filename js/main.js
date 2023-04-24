@@ -1,4 +1,12 @@
-var selectionPending = true;
+let env;
+
+async function loadEnv(envPath) {
+  env = await fetch(envPath).then((response) => response.json());
+  env.API_BASE_URL = env.WEB_QUIZ_URL + env.WEB_QUIZ_API_PATH;
+  return env;
+}
+
+let selectionPending = true;
 
 // utility for checking a radio button option
 function check(event) {

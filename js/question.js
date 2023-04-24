@@ -1,11 +1,3 @@
-let env;
-
-async function loadEnv(envPath) {
-  env = await fetch(envPath).then((response) => response.json());
-  env.API_BASE_URL = env.WEB_QUIZ_URL + env.WEB_QUIZ_API_PATH;
-  return env;
-}
-
 class Question {
   constructor() {
     this.headers = new Headers();
@@ -101,4 +93,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     await question.fetch();
     question.render();
   });
+  const nav = new Navigation();
+
 }, false);

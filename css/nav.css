@@ -51,6 +51,10 @@
   margin: 0 1.5rem;
 }
 
+.nav-link * {
+  pointer-events: none;
+}
+
 [class^="fa"] {
   color: var(--selected-primary);
   transition: var(--transition-speed);
