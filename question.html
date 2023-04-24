@@ -43,9 +43,10 @@
 
     <!-- use of scripts -->
     <script src="js/main.js"></script>
+    <script src="js/nav.js"></script>
     <script src="js/question.js"></script>
     <script defer src="js/theme.js"></script>
-    <script src="js/category.js"></script>
+    <!-- <script src="js/category.js"></script> -->
 
     <!-- <script type="text/javascript"> -->
     <!--   if ("serviceWorker" in navigator) { -->
@@ -63,81 +64,6 @@
   </head>
 
   <body>
-    <nav class="navbar">
-      <!-- unordered list containing the "actual nav" -->
-      <ul class="navbar-nav">
-        <li class="home-logo">
-          <a href="index.html" class="nav-link">
-            <span class="link-text">Lernapp</span>
-            <i class="fa-solid fa-house"></i>
-          </a>
-        </li>
-
-        <!-- list item within the nav element -->
-        <li class="nav-item">
-          <a
-            href="question.html"
-            class="nav-link"
-            onclick="changeCategory('general')"
-          >
-            <i class="fa-solid fa-earth-europe"></i>
-            <span class="link-text">Allgemein</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a
-            href="question.html"
-            class="nav-link"
-            onclick="changeCategory('maths')"
-          >
-            <i class="fa-solid fa-square-root-variable"></i>
-            <span class="link-text">Mathematik</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a
-            href="question.html"
-            class="nav-link"
-            onclick="changeCategory('it')"
-          >
-            <i class="fa-brands fa-firefox-browser"></i>
-            <span class="link-text">Internettechnologien</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="question.html" class="nav-link">
-            <i class="fa-solid fa-music"></i>
-            <span class="link-text" onclick="changeCategory('music')"
-              >Musik</span
-            >
-          </a>
-        </li>
-        <!-- <li class="nav-item"> -->
-        <!--   <a href="question.html" class="nav-link"> -->
-        <!--     <i class="fa-solid fa-shuffle"></i> -->
-        <!--     <span class="link-text">Zufall</span> -->
-        <!--   </a> -->
-        <!-- </li> -->
-        <li class="nav-item">
-          <a href="quiz-editor.html" class="nav-link">
-            <i class="fa-solid fa-pen-to-square"></i>
-            <label class="link-text">Quiz Editor</label>
-          </a>
-        </li>
-
-        <li class="nav-item" id="themeButton">
-          <a href="#" class="nav-link">
-            <i class="fa-solid fa-moon" id="darkIcon"></i>
-            <i class="fa-solid fa-sun" id="lightIcon"></i>
-            <i class="fa-solid fa-solar-panel" id="solarIcon"></i>
-            <span class="link-text">Farben</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
 
     <header>
       <h1>This is my PWA</h1>

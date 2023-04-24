@@ -1,19 +1,40 @@
+const TOPIC_DATA = {
+  "home": {
+    "icon": "fa-solid fa-house",
+    "label": "Lernapp",
+  },
+  "general": {
+    "icon": "fa-solid fa-earth-europe",
+    "label": "Allgemein",
+  },
+  "maths": {
+    "icon": "fa-solid fa-square-root-variable",
+    "label": "Mathematik",
+  },
+  "it": {
+    "icon": "fa-brands fa-firefox-browser",
+    "label": "Internettechnologien",
+  },
+  "music": {
+    "icon": "fa-solid fa-music",
+    "label": "Musik",
+  },
+  "quizeditor": {
+    "icon": "fa-solid fa-pen-to-square",
+    "label": "Quiz Editor",
+  },
+};
+
+const THEME_BUTTON_ICONS = {
+  "darkIcon": "fa-solid fa-moon",
+  "lightIcon": "fa-solid fa-sun",
+  "solarIcon": "fa-solid fa-solar-panel",
+};
+
 class Navigation {
   navElem;
   ulElem;
   navItems;
-  static topicDataLoaded = false;
-  static topicData;
-
-  static async loadTopicData() {
-    if (this.topicDataLoaded) {
-      return this.topicData;
-    }
-    const env = await loadEnv();
-    this.topicData = env.TOPIC_DATA;
-    this.topicDataLoaded = true;
-    return this.topicData;
-  }
 
   constructor() {
     this.navElem = document.createElement("nav");
@@ -26,9 +47,8 @@ class Navigation {
     this.navItems = [];
   }
 
-  async addNavItem(topic, onClickFunction) {
-    await this.loadTopicData();
-    const topic = topicData[topic];
+  addNavItem(topicName) {
+    const topic = TOPIC_DATA[topicName];
     const label = topic.label;
     const icon = topic.icon;
 
@@ -40,7 +60,7 @@ class Navigation {
     navLinkElem.setAttribute("href", "#");
 
     const navIconElem = document.createElement("i");
-    navIconElem.classList.add(icon);
+    navIconElem.setAttribute("class", icon);
 
     const navLabelElem = document.createElement("span");
     navLabelElem.classList.add("link-text");
@@ -48,79 +68,82 @@ class Navigation {
 
     navLinkElem.appendChild(navIconElem);
     navLinkElem.appendChild(navLabelElem);
-
-    newNavItemElem.addEventListener("click", onClickFunction);
     newNavItemElem.appendChild(navLinkElem);
 
     this.navItems.push(newNavItemElem);
-    return this.navItems;
+    return this;
   }
 
-  async addHomeLogo() {
-    await this.loadTopicData();
+  addHomeLogo() {
     const newHomeLogoElem = document.createElement("li");
     newHomeLogoElem.classList.add("home-logo");
 
+    const homeData = TOPIC_DATA.home;
+    const icon = homeData.icon;
+    const label = homeData.label;
+
     const navLinkElem = document.createElement("a");
     navLinkElem.classList.add("nav-link");
-    navLinkElem.setAttribute("href", "#");
+    navLinkElem.setAttribute("href", "index.html");
 
     const navLabelElem = document.createElement("span");
     navLabelElem.classList.add("link-text");
     navLabelElem.textContent = label;
 
     const navIconElem = document.createElement("i");
-    navIconElem.classList.add(icon);
+    navIconElem.setAttribute("class", icon);
 
     navLinkElem.appendChild(navLabelElem);
     navLinkElem.appendChild(navIconElem);
     newHomeLogoElem.appendChild(navLinkElem);
 
     this.navItems.push(newHomeLogoElem);
-    return this.navItems;
+    return this;
   }
 
-  async addThemeButton() {
-    await this.loadTopicData();
+  addThemeButton() {
     const newNavItemElem = document.createElement("li");
     newNavItemElem.classList.add("nav-item");
     newNavItemElem.setAttribute("id", "themeButton");
+
+    const darkIcon = THEME_BUTTON_ICONS.darkIcon;
+    const lightIcon = THEME_BUTTON_ICONS.lightIcon;
+    const solarIcon = THEME_BUTTON_ICONS.solarIcon;
 
     const navLinkElem = document.createElement("a");
     navLinkElem.classList.add("nav-link");
     navLinkElem.setAttribute("href", "#");
 
     const darkIconElem = document.createElement("i");
-    darkIconElem.classList.add(darkIcon);
+    darkIconElem.setAttribute("class", darkIcon);
     darkIconElem.setAttribute("id", "darkIcon");
+    navLinkElem.appendChild(darkIconElem);
 
     const lightIconElem = document.createElement("i");
-    lightIconElem.classList.add(lightIcon);
-    darkIconElem.setAttribute("id", "lightIcon");
+    lightIconElem.setAttribute("class", lightIcon);
+    lightIconElem.setAttribute("id", "lightIcon");
+    navLinkElem.appendChild(lightIconElem);
 
     const solarIconElem = document.createElement("i");
-    solarIconElem.classList.add(solarIcon);
-    darkIconElem.setAttribute("id", "solarIcon");
+    solarIconElem.setAttribute("class", solarIcon);
+    solarIconElem.setAttribute("id", "solarIcon");
+    navLinkElem.appendChild(solarIconElem);
 
     const navLabelElem = document.createElement("span");
     navLabelElem.classList.add("link-text");
-    navLabelElem.textContent = label;
-
-    navLinkElem.appendChild(darkIconElem);
-    navLinkElem.appendChild(lightIconElem);
-    navLinkElem.appendChild(solarIconElem);
+    navLabelElem.textContent = "Farben";
     navLinkElem.appendChild(navLabelElem);
 
     newNavItemElem.appendChild(navLinkElem);
 
     this.navItems.push(newNavItemElem);
-    return this.navItems;
+    return this;
   }
 
   create() {
     this.navItems.forEach((item) => {
       this.ulElem.appendChild(item);
     });
-    document.body.prepend(this.navElem);
+    document.body.appendChild(this.navElem);
   }
 }

@@ -10,9 +10,9 @@ class Question {
   setID(questionID) {
     this.questionID = questionID;
   }
-  
+
   incrementQuestionID() {
-    this.setID(this.questionID + 1); 
+    this.setID(this.questionID + 1);
   }
 
   render() {
@@ -75,7 +75,16 @@ class Question {
   }
 }
 
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async function() {
+  const nav = new Navigation();
+  nav.addHomeLogo()
+    .addNavItem("general")
+    .addNavItem("maths")
+    .addNavItem("it")
+    .addNavItem("music")
+    .addNavItem("quizeditor")
+    .addThemeButton()
+    .create();
   await loadEnv("./env.json");
   const question = new Question();
   question.setID(2);
@@ -86,13 +95,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     e.preventDefault();
     new FormData(formElem);
   });
-  formElem.addEventListener("formdata", async function (e) {
+  formElem.addEventListener("formdata", async function(e) {
     const response = await question.solve(e.formData.get("solution"));
     console.log(response);
     question.incrementQuestionID();
     await question.fetch();
     question.render();
   });
-  const nav = new Navigation();
-
 }, false);
