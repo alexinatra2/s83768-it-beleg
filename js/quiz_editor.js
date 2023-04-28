@@ -37,7 +37,7 @@ function validate() {
 // create an empty option element in the DOM
 function addEmptyOption() {
   if (newOptions >= MAX_OPTIONS) {
-    throw "attempted to create more than " + MAX_OPTIONS + " options";
+    throw `attempted to create more than ${MAX_OPTIONS} options`;
   }
 
   const optionNumber = newOptions + 1;

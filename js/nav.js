@@ -47,6 +47,21 @@ class Navigation {
     this.navItems = [];
   }
 
+  addItems(topicList) {
+    for (const topic of topicList) {
+      switch(topic) {
+        case "home":
+          this.addHomeLogo();
+          break;
+        case "theme":
+          this.addThemeButton();
+          break;
+        default:
+          this.addNavItem(topic);
+      }
+    }
+  }
+
   addNavItem(topicName) {
     const topic = TOPIC_DATA[topicName];
     const label = topic.label;

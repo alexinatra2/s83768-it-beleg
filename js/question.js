@@ -75,7 +75,7 @@ class Question {
   }
 }
 
-document.addEventListener("DOMContentLoaded", async function() {
+document.addEventListener("DOMContentLoaded", async function () {
   const nav = new Navigation();
   nav.addHomeLogo()
     .addNavItem("general")
@@ -85,17 +85,21 @@ document.addEventListener("DOMContentLoaded", async function() {
     .addNavItem("quizeditor")
     .addThemeButton()
     .create();
+
   await loadEnv("./env.json");
   const question = new Question();
   question.setID(2);
   await question.fetch();
   question.render();
+
   const formElem = document.getElementById("question-solve-form");
+
   formElem.addEventListener("submit", (e) => {
     e.preventDefault();
     new FormData(formElem);
   });
-  formElem.addEventListener("formdata", async function(e) {
+
+  formElem.addEventListener("formdata", async function (e) {
     const response = await question.solve(e.formData.get("solution"));
     console.log(response);
     question.incrementQuestionID();
