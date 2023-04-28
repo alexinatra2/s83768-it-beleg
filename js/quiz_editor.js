@@ -23,14 +23,14 @@ function correctAnswerSelected() {
 }
 
 function validate() {
-  const submit_button = document.getElementById("submit-button-label");
-  const submit_button_classes = submit_button.classList;
+  const submitButton = document.getElementById("submit-button");
+  const submitButtonClasses = submitButton.classList;
   if (correctAmountOfOptions(newOptions) && correctAnswerSelected()) {
-    submit_button_classes.remove("pending");
-    submit_button_classes.add("ready");
+    submitButtonClasses.remove("pending");
+    submitButtonClasses.add("ready");
   } else {
-    submit_button_classes.remove("ready");
-    submit_button_classes.add("pending");
+    submitButtonClasses.remove("ready");
+    submitButtonClasses.add("pending");
   }
 }
 
@@ -58,7 +58,7 @@ function addEmptyOption() {
   const textHint = "Option " + OPTIONS_LABEL[newOptions];
   addTextHint(textInput, textHint);
 
-  const addButtonElem = document.getElementById("add-button");
+  const addButtonElem = document.getElementById("add-button-tile");
 
   const optionsElem = document.getElementById("options");
   optionsElem.insertBefore(li, addButtonElem);

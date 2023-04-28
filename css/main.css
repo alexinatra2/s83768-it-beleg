@@ -78,6 +78,13 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+/* small screens */
+@media only screen and (max-width: 600px) {
+  main {
+    overflow-y: clip;
+  }
+}
+
 header {
   height: 5rem;
   background: var(--bg-header-start);

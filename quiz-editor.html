@@ -30,6 +30,7 @@
   <script src="js/quiz_editor.js"></script>
   <script defer src="js/theme.js"></script>
   <script src="js/category.js"></script>
+  <script src="js/nav.js"></script>
 
   <!-- <script type="text/javascript"> -->
   <!--   if ("serviceWorker" in navigator) { -->
@@ -50,21 +51,22 @@
 
   <main>
     <form id="question-edit-form">
-      <input type="text" id="question" name="text" />
-
       <ul class="tiles" id="options">
-        <li id="add-button" class="add-button" onclick="addEmptyOption()">
+        <li id="question-tile">
+          <input type="text" id="question" name="text" />
+        </li>
+
+        <li id="add-button-tile" class="add-button" onclick="addEmptyOption()">
           <a href="#">
             <i class="fa-solid fa-plus"></i>
           </a>
         </li>
 
-        <li id="submit-button-label" class="pending">
+        <li id="submit-button-tile" class="pending">
           <label for="submit-button">Save</label>
+          <input type="submit" id="submit-button" />
         </li>
       </ul>
-
-      <input type="submit" id="submit-button" />
     </form>
   </main>
 </body>
