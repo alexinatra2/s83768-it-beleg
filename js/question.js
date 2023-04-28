@@ -20,7 +20,10 @@ class Question {
     questionElem.textContent = this.data.text;
     const options = this.data.options;
     const optionsElem = document.getElementById("options");
-    optionsElem.innerHTML = "";
+    optionsElem.querySelectorAll(".option").forEach(option => optionsElem.removeChild(option));
+    const submitButtonTileElem = document.getElementById("submit-button-tile");
+    submitButtonTileElem.classList.remove("ready");
+    submitButtonTileElem.classList.add("pending");
     Object.keys(options).forEach((i) => {
       const li = document.createElement("li");
       li.setAttribute("class", "option");
@@ -32,7 +35,7 @@ class Question {
     <input id=${optionID} type="radio" name="solution" value=${i} />
     <label for=${optionID}>${options[i]}</label>
   `;
-      optionsElem.appendChild(li);
+      optionsElem.prepend(li);
     });
   }
 
