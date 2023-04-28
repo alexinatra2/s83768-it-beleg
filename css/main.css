@@ -37,22 +37,23 @@ header {
 }
 
 main.category-general {
-  background-image: url(../images/general.jpg);
+  background-image: url(../assets/images/general.jpg);
 }
 
 main.category-maths {
-  background-image: url(../images/maths.jpg);
+  background-image: url(../assets/images/maths.jpg);
 }
 
 main.category-it {
-  background-image: url(../images/it.jpg);
+  background-image: url(../assets/images/it.jpg);
 }
 
 main.category-music {
-  background-image: url(../images/music.jpg);
+  background-image: url(../assets/images/music.jpg);
 }
 
 h1 {
+  position: relative;
   text-align: center;
 }
 

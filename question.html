@@ -1,93 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My New PWA</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000" />
+<head>
+  <title>Lernapp</title>
 
-    <!-- use of icons -->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="./assets/icons/icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      href="/assets/icons/icon.png"
-      sizes="32x32"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      href="/assets/icons/icon.png"
-      sizes="16x16"
-    />
-    <link rel="manifest" href="./manifest.json" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000" />
 
-    <!-- import the google font Oswald -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oswald&display=swap"
-      rel="stylesheet"
-    />
-    <!-- end import the goolge font Oswald  -->
+  <!-- use of icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/icon.jpg" />
+  <link rel="icon" type="image/png" href="/assets/icons/icon.jpg" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/assets/icons/icon.jpg" sizes="16x16" />
+  <link rel="manifest" href="./manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
 
-    <!-- use the stylesheets inside the css directory -->
-    <style>
-      @import "css/main.css";
-      @import "css/theme.css";
-      @import "css/nav.css";
-      @import "css/tiles.css";
-    </style>
+  <!-- use the stylesheets inside the css directory -->
+  <style>
+    @import "css/main.css";
+    @import "css/theme.css";
+    @import "css/nav.css";
+    @import "css/tiles.css";
+  </style>
 
-    <!-- use of scripts -->
-    <script src="js/main.js"></script>
-    <script src="js/nav.js"></script>
-    <script src="js/question.js"></script>
-    <script defer src="js/theme.js"></script>
-    <!-- <script src="js/category.js"></script> -->
+  <!-- use of scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/question.js"></script>
+  <script defer src="js/theme.js"></script>
+  <!-- <script src="js/category.js"></script> -->
 
-    <!-- <script type="text/javascript"> -->
-    <!--   if ("serviceWorker" in navigator) { -->
-    <!--     navigator.serviceWorker -->
-    <!--       .register(window.location.href + "service-worker.js") -->
-    <!--       .then(function () { -->
-    <!--         console.log("Service Worker Registered"); -->
-    <!--       }); -->
-    <!--   } -->
-    <!-- </script> -->
-    <script
-      src="https://kit.fontawesome.com/086e5bc465.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+  <!-- <script type="text/javascript"> -->
+  <!--   if ("serviceWorker" in navigator) { -->
+  <!--     navigator.serviceWorker -->
+  <!--       .register(window.location.href + "service-worker.js") -->
+  <!--       .then(function () { -->
+  <!--         console.log("Service Worker Registered"); -->
+  <!--       }); -->
+  <!--   } -->
+  <!-- </script> -->
+  <script src="https://kit.fontawesome.com/086e5bc465.js" crossorigin="anonymous"></script>
+</head>
 
-  <body>
+<body>
+  <header>
+    <h1>Fragen</h1>
+    <!-- in the future, a user icon should be displayed in the top right corner indicating -->
+    <!-- the login status of the user. -->
+    <!-- the first icon with a `solid` user should indicate a user has authenticated -->
+    <i class="fa-solid fa-user"></i>
+    <!-- while a `regular` user should indicate the lack thereof -->
+    <i class="fa-regular fa-user"></i>
+  </header>
 
-    <header>
-      <h1>This is my PWA</h1>
-      <!-- in the future, a user icon should be displayed in the top right corner indicating -->
-      <!-- the login status of the user. -->
-      <!-- the first icon with a `solid` user should indicate a user has authenticated -->
-      <!-- <i class="fa-solid fa-user"></i> -->
-      <!-- while a `regular` user should indicate the lack thereof -->
-      <!-- <i class="fa-regular fa-user"></i> -->
-    </header>
+  <main>
+    <form id="question-solve-form">
+      <p id="question"></p>
 
-    <main>
-      <form id="question-solve-form">
-        <p id="question"></p>
+      <ul class="tiles" id="options"></ul>
 
-        <ul class="tiles" id="options"></ul>
+      <label id="submit-button-label" for="submit-button" class="pending">Submit Answer</label>
+      <input type="submit" id="submit-button" />
+    </form>
+  </main>
+</body>
 
-        <label id="submit-button-label" for="submit-button" class="pending"
-          >Submit Answer</label
-        >
-        <input type="submit" id="submit-button" />
-      </form>
-    </main>
-
-    <footer></footer>
-  </body>
 </html>

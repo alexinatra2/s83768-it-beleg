@@ -116,6 +116,16 @@ function deleteOption(event) {
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
+  const nav = new Navigation();
+  nav.addHomeLogo()
+    .addNavItem("general")
+    .addNavItem("maths")
+    .addNavItem("it")
+    .addNavItem("music")
+    .addNavItem("quizeditor")
+    .addThemeButton()
+    .create();
+
   const formElem = document.getElementById("question-edit-form");
 
   formElem.addEventListener("submit", (e) => {

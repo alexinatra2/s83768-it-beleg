@@ -1,187 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My New PWA</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000" />
+<head>
+  <title>Lernapp</title>
 
-    <!-- use of icons -->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="./assets/icons/icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      href="/assets/icons/icon.png"
-      sizes="32x32"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      href="/assets/icons/icon.png"
-      sizes="16x16"
-    />
-    <link rel="manifest" href="./manifest.json" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000" />
 
-    <!-- import the google font Oswald -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oswald&display=swap"
-      rel="stylesheet"
-    />
-    <!-- end import the goolge font Oswald  -->
+  <!-- use of icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/icon.jpg" />
+  <link rel="icon" type="image/png" href="/assets/icons/icon.jpg" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/assets/icons/icon.jpg" sizes="16x16" />
+  <link rel="manifest" href="./manifest.json" />
 
-    <!-- use the stylesheets inside the css directory -->
-    <style>
-      @import "css/main.css";
-      @import "css/theme.css";
-      @import "css/nav.css";
-      @import "css/tiles.css";
-    </style>
+  <!-- import the google font Oswald -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+  <!-- end import the goolge font Oswald  -->
 
-    <!-- use of scripts -->
-    <script src="js/main.js"></script>
-    <script src="js/quiz_editor.js"></script>
-    <script defer src="js/theme.js"></script>
-    <script src="js/category.js"></script>
+  <!-- use the stylesheets inside the css directory -->
+  <style>
+    @import "css/main.css";
+    @import "css/theme.css";
+    @import "css/nav.css";
+    @import "css/tiles.css";
+  </style>
 
-    <!-- <script type="text/javascript"> -->
-    <!--   if ("serviceWorker" in navigator) { -->
-    <!--     navigator.serviceWorker -->
-    <!--       .register(window.location.href + "service-worker.js") -->
-    <!--       .then(function () { -->
-    <!--         console.log("Service Worker Registered"); -->
-    <!--       }); -->
-    <!--   } -->
-    <!-- </script> -->
-    <script
-      src="https://kit.fontawesome.com/086e5bc465.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+  <!-- use of scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/quiz_editor.js"></script>
+  <script defer src="js/theme.js"></script>
+  <script src="js/category.js"></script>
 
-  <body>
-    <nav class="navbar">
-      <!-- unordered list containing the "actual nav" -->
-      <ul class="navbar-nav">
-        <li class="home-logo">
-          <a href="index.html" class="nav-link">
-            <span class="link-text">Lernapp</span>
-            <i class="fa-solid fa-house"></i>
+  <!-- <script type="text/javascript"> -->
+  <!--   if ("serviceWorker" in navigator) { -->
+  <!--     navigator.serviceWorker -->
+  <!--       .register(window.location.href + "service-worker.js") -->
+  <!--       .then(function () { -->
+  <!--         console.log("Service Worker Registered"); -->
+  <!--       }); -->
+  <!--   } -->
+  <!-- </script> -->
+  <script src="https://kit.fontawesome.com/086e5bc465.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Fragen-Editor</h1>
+  </header>
+
+  <main>
+    <form id="question-edit-form">
+      <input type="text" id="question" name="text" />
+
+      <ul class="tiles" id="options">
+        <li id="add-button" class="add-button" onclick="addEmptyOption()">
+          <a href="#">
+            <i class="fa-solid fa-plus"></i>
           </a>
         </li>
 
-        <!-- list item within the nav element -->
-        <li class="nav-item">
-          <a
-            href="question.html"
-            class="nav-link"
-            onclick="changeCategory('general')"
-          >
-            <i
-              class="fa-solid fa-earth-europe"
-              onclick="changeCategory('general')"
-            ></i>
-            <span class="link-text" onclick="changeCategory('general')"
-              >Allgemein</span
-            >
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a
-            href="question.html"
-            class="nav-link"
-            onclick="changeCategory('maths')"
-          >
-            <i
-              class="fa-solid fa-square-root-variable"
-              onclick="changeCategory('maths')"
-            ></i>
-            <span class="link-text" onclick="changeCategory('maths')"
-              >Mathematik</span
-            >
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a
-            href="question.html"
-            class="nav-link"
-            onclick="changeCategory('it')"
-          >
-            <i
-              class="fa-brands fa-firefox-browser"
-              onclick="changeCategory('it')"
-            ></i>
-            <span class="link-text" onclick="changeCategory('it')"
-              >Internettechnologien</span
-            >
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a
-            href="question.html"
-            class="nav-link"
-            onclick="changeCategory('music')"
-          >
-            <i class="fa-solid fa-music" onclick="changeCategory('music')"></i>
-            <span class="link-text" onclick="changeCategory('music')"
-              >Musik</span
-            >
-          </a>
-        </li>
-        <!-- <li class="nav-item"> -->
-        <!--   <a href="question.html" class="nav-link"> -->
-        <!--     <i class="fa-solid fa-shuffle"></i> -->
-        <!--     <span class="link-text">Zufall</span> -->
-        <!--   </a> -->
-        <!-- </li> -->
-        <li class="nav-item">
-          <a href="quiz-editor.html" class="nav-link">
-            <i class="fa-solid fa-pen-to-square"></i>
-            <label class="link-text">Quiz Editor</label>
-          </a>
-        </li>
-
-        <li class="nav-item" id="themeButton">
-          <a href="#" class="nav-link">
-            <i class="fa-solid fa-moon" id="darkIcon"></i>
-            <i class="fa-solid fa-sun" id="lightIcon"></i>
-            <i class="fa-solid fa-solar-panel" id="solarIcon"></i>
-            <span class="link-text">Farben</span>
-          </a>
+        <li id="submit-button-label" class="pending">
+          <label for="submit-button">Save</label>
         </li>
       </ul>
-    </nav>
 
-    <header>
-      <h1>This is my PWA</h1>
-    </header>
+      <input type="submit" id="submit-button" />
+    </form>
+  </main>
+</body>
 
-    <main>
-      <form id="question-edit-form">
-        <input type="text" id="question" name="text" />
-
-        <ul class="tiles" id="options">
-          <li id="add-button" class="add-button" onclick="addEmptyOption()">
-            <a href="#">
-              <i class="fa-solid fa-plus"></i>
-            </a>
-          </li>
-
-          <li id="submit-button-label" class="pending">
-            <label for="submit-button">Save</label>
-          </li>
-        </ul>
-
-        <input type="submit" id="submit-button" />
-      </form>
-    </main>
-
-    <footer></footer>
-  </body>
 </html>
