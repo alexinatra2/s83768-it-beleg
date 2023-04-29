@@ -26,16 +26,16 @@ class Question {
     submitButtonTileElem.classList.add("pending");
     Object.keys(options).forEach((i) => {
       const li = document.createElement("li");
-      li.setAttribute("class", "option");
+      li.setAttribute("class", "option tile");
       li.setAttribute("onclick", "check(event)");
 
       const optionID = "option-" + i;
 
       li.innerHTML = `
-    <input id=${optionID} type="radio" name="solution" value=${i} />
-    <label for=${optionID}>${options[i]}</label>
-  `;
-      optionsElem.prepend(li);
+        <input id=${optionID} type="radio" name="solution" value=${i} />
+        <label for=${optionID}>${options[i]}</label>
+      `;
+      optionsElem.insertBefore(li, submitButtonTileElem);
     });
   }
 

@@ -9,7 +9,7 @@
   grid-gap: 1rem;
 }
 
-.tiles li {
+.tile {
   height: 100%;
   width: 100%;
   margin: 0.5rem 0;
@@ -28,7 +28,7 @@
     rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
 }
 
-.tiles li:hover {
+.tile:hover {
   background: var(--bg-secondary);
   color: var(--text-secondary);
   box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em,
@@ -37,11 +37,7 @@
   z-index: 2;
 }
 
-.option input {
-  display: none;
-}
-
-.option * {
+.tile * {
   pointer-events: none;
 }
 
@@ -53,71 +49,19 @@
   pointer-events: all;
 }
 
-#submit-button-label {
-  margin: min(1.5rem, 5vw);
-}
-
-#submit-button {
+.tiles input {
   display: none;
 }
 
-.new-option-link {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  align-items: center;
-}
-
-input {
-  position: relative;
-  border: none;
-  outline: none;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-.new-option-radio {
-  width: 100%;
-  display: none;
-  pointer-events: none;
-}
-
-.new-option-text {
-  text-align: center;
-  font-size: 1rem;
-  margin: 0.25rem;
-  align-self: center;
-  width: 100%;
-  height: 100%;
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
-  transition: all var(--transition-speed);
-}
-
-@media (max-width: 600px) {
-  .new-option-text {
-    font-size: 0.5rem;
-  }
-}
-
-.tiles li:hover .new-option-text {
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
-}
-
-.new-option-delete {
-  justify-self: center;
-}
-
-.option.selected {
+.selected {
   background-color: var(--selected-primary);
 }
 
-#submit-button-tile,#add-button-tile,#question-tile {
+#submit-button-tile,#question-tile {
   grid-column: 1 / 3;
+  background: var(--bg-secondary);
 }
 
-#question-tile input {
-  width: 80%;
-  height: 80%;
+#question-tile {
+  pointer-events: none;
 }
