@@ -15,12 +15,14 @@ class Question {
     this.setID(this.questionID + 1);
   }
 
-  render() {
+  renderOptions() {
     const questionElem = document.getElementById("question");
     questionElem.textContent = this.data.text;
     const options = this.data.options;
     const optionsElem = document.getElementById("options");
-    optionsElem.querySelectorAll(".option").forEach(option => optionsElem.removeChild(option));
+    optionsElem.querySelectorAll(".option").forEach((option) =>
+      optionsElem.removeChild(option)
+    );
     const submitButtonTileElem = document.getElementById("submit-button-tile");
     submitButtonTileElem.classList.remove("ready");
     submitButtonTileElem.classList.add("pending");
@@ -37,6 +39,12 @@ class Question {
       `;
       optionsElem.insertBefore(li, submitButtonTileElem);
     });
+  }
+
+  async highlightCorrect() {
+    const correctID = await this.getCorrect();
+    const correctOptionElem = document.getElementById("option-" + correctID);
+    correctOptionElem.parentNode.classList.add("correct");
   }
 
   // get a question from the web-quizzes api
@@ -65,6 +73,18 @@ class Question {
     return await response.json();
   }
 
+  // obtain the correct answer by brute-forcing all choices
+  async getCorrect() {
+    const options = this.data.options;
+    for (const solutionIndex of options.keys()) {
+      const response = await this.solve(solutionIndex);
+      if (response.success) {
+        return solutionIndex;
+      }
+    }
+    throw "No correct option exists";
+  }
+
   // get all quiz questions that have been completed so far
   async getCompleted() {
     const response = await fetch(
@@ -78,7 +98,7 @@ class Question {
   }
 }
 
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async function() {
   const nav = new Navigation();
   nav.addHomeLogo()
     .addNavItem("general")
@@ -89,11 +109,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     .addThemeButton()
     .create();
 
-  await loadEnv("./env.json");
+  await loadEnv("/env.json");
   const question = new Question();
   question.setID(2);
   await question.fetch();
-  question.render();
+  question.renderOptions();
 
   const formElem = document.getElementById("question-solve-form");
 
@@ -102,11 +122,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     new FormData(formElem);
   });
 
-  formElem.addEventListener("formdata", async function (e) {
-    const response = await question.solve(e.formData.get("solution"));
-    console.log(response);
+  formElem.addEventListener("formdata", async function(e) {
+    const pickedOption = e.formData.get("solution");
+    await question.solve(pickedOption);
+    await question.highlightCorrect();
+    await ((ms) => new Promise((r) => setTimeout(r, ms)))(1000);
     question.incrementQuestionID();
     await question.fetch();
-    question.render();
+    question.renderOptions();
   });
 }, false);
