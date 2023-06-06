@@ -1,66 +1,71 @@
+let env;
+
+async function loadEnv(envPath) {
+  env = await fetch(envPath).then((response) => response.json());
+  env.API_BASE_URL = env.WEB_QUIZ_URL + env.WEB_QUIZ_API_PATH;
+  return env;
+}
+
 class Question {
-  constructor() {
+  constructor(questionID) {
     this.headers = new Headers();
     this.headers.set(
       "Authorization",
       "Basic " + btoa(env.USER + ":" + env.PASSWORD),
     );
-  }
-
-  setID(questionID) {
     this.questionID = questionID;
   }
 
-  incrementQuestionID() {
-    this.setID(this.questionID + 1);
-  }
-
-  render() {
+  fill() {
     const questionElem = document.getElementById("question");
     questionElem.textContent = this.data.text;
-    const options = this.data.options;
     const optionsElem = document.getElementById("options");
-    optionsElem.querySelectorAll(".option").forEach(option => optionsElem.removeChild(option));
-    const submitButtonTileElem = document.getElementById("submit-button-tile");
-    submitButtonTileElem.classList.remove("ready");
-    submitButtonTileElem.classList.add("pending");
+    const options = data.options;
     Object.keys(options).forEach((i) => {
-      const li = document.createElement("li");
-      li.setAttribute("class", "option");
-      li.setAttribute("onclick", "check(event)");
-
-      const optionID = "option-" + i;
-
-      li.innerHTML = `
-    <input id=${optionID} type="radio" name="solution" value=${i} />
-    <label for=${optionID}>${options[i]}</label>
-  `;
-      optionsElem.prepend(li);
+      this.createOption(optionsElem, i, options[i]);
     });
   }
 
+  createOption(elem, index, content) {
+    const li = document.createElement("li");
+    li.setAttribute("class", "option");
+    li.setAttribute("onclick", "check(event)");
+
+    var optionIndex = index;
+    optionIndex++;
+    const optionID = "option-" + optionIndex;
+
+    li.innerHTML = `
+    <input id=${optionID} type="radio" name="question" value=${optionIndex} />
+    <label for=${optionID}>${content}</label>
+  `;
+
+    const submitElem = document.querySelector(".pending,.ready");
+
+    elem.insertBefore(li, submitElem);
+  }
+
   // get a question from the web-quizzes api
-  async fetch() {
+  async fetch(quizID) {
     const response = await fetch(
-      env.API_BASE_URL + this.questionID,
+      env.API_BASE_URL + quizID,
       {
         method: "GET",
-        headers: this.headers,
+        headers: baseHeaders(),
       },
     );
-    this.data = await response.json();
+    return await response.json();
   }
 
   // solve a question from the web-quizzes api
-  async solve(solution) {
-    const url = env.API_BASE_URL + this.questionID + "/solve";
-    const headers = this.headers;
+  async solve(quizID, solution) {
+    const url = env.API_BASE_URL + quizID + "/solve";
+    const headers = baseHeaders();
     headers.set("Content-Type", "application/json");
-    const formattedSolution = `[${solution}]`;
     const response = await fetch(url, {
       method: "POST",
       headers: headers,
-      body: formattedSolution,
+      body: solution,
     });
     return await response.json();
   }
@@ -71,42 +76,35 @@ class Question {
       env.API_BASE_URL + "completed",
       {
         method: "GET",
-        headers: this.headers,
+        credentials: "include",
+        headers: {
+          "Access-Control-Allow-Origin": "no-cors",
+        },
       },
     );
     return await response.json();
   }
+
+  
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
-  const nav = new Navigation();
-  nav.addHomeLogo()
-    .addNavItem("general")
-    .addNavItem("maths")
-    .addNavItem("it")
-    .addNavItem("music")
-    .addNavItem("quizeditor")
-    .addThemeButton()
-    .create();
-
-  await loadEnv("./env.json");
-  const question = new Question();
-  question.setID(2);
-  await question.fetch();
-  question.render();
-
+  const env = await loadEnv("./env.json");
+  const question = new Question(env);
+  quiestion.fill(await getQuiz(3));
   const formElem = document.getElementById("question-solve-form");
-
   formElem.addEventListener("submit", (e) => {
     e.preventDefault();
     new FormData(formElem);
   });
-
   formElem.addEventListener("formdata", async function (e) {
-    const response = await question.solve(e.formData.get("solution"));
+    const data = e.formData;
+    let jsonData = {};
+    for (const pair of data.entries()) {
+      jsonData[pair[0]] = pair[1];
+    }
+    console.log(jsonData.question);
+    const response = await solveQuiz(3, "[" + jsonData.question + "]");
     console.log(response);
-    question.incrementQuestionID();
-    await question.fetch();
-    question.render();
   });
 }, false);

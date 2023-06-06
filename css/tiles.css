@@ -113,7 +113,13 @@ input {
   background-color: var(--selected-primary);
 }
 
-#submit-button-tile,#add-button-tile,#question-tile {
+.option.selected:hover {
+  background-color: var(--selected-primary);
+}
+
+#submit-button-tile,
+#add-button-tile,
+#question-tile {
   grid-column: 1 / 3;
 }
 
