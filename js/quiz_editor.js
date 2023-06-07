@@ -14,7 +14,7 @@ function correctAmountOfOptions(options) {
 
 function correctAnswerSelected() {
   const radioButtonElems = document.querySelectorAll('input[type="radio"]');
-  for (var i = 0; i < radioButtonElems.length; i++) {
+  for (let i = 0; i < radioButtonElems.length; i++) {
     if (radioButtonElems[i].checked) {
       return true;
     }
@@ -67,13 +67,13 @@ function addEmptyOption() {
 }
 
 function chooseCorrectOption(event) {
-  var elem = event.target;
+  let elem = event.target;
   if (!elem.classList.contains(".new-option-link")) {
     elem = elem.parentNode;
   }
 
   const options = document.getElementsByClassName(".new-option-link");
-  for (var i = 0; i < options.length; i++) {
+  for (let i = 0; i < options.length; i++) {
     const option = options[i];
     option.classList.remove("selected");
   }
@@ -89,18 +89,18 @@ function chooseCorrectOption(event) {
 }
 
 function addTextHint(elem, hintText) {
-  if (elem.value == "") {
+  if (elem.value === "") {
     elem.value = hintText;
   }
 
   elem.onfocus = function () {
-    if (elem.value == hintText) {
+    if (elem.value === hintText) {
       elem.value = "";
     }
   };
 
   elem.onblur = function () {
-    if (elem.value == "") {
+    if (elem.value === "") {
       elem.value = hintText;
     }
   };
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   formElem.addEventListener("formdata", (e) => {
     const data = e.formData;
-    var questionData = {
+    const questionData = {
       "options": [],
     };
     for (const pair of data.entries()) {

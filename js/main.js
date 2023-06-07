@@ -15,7 +15,7 @@ function check(event) {
     throw 'check(event) was called on a non-".option" element.';
   }
   const options = document.getElementsByClassName("option");
-  for (var i = 0; i < options.length; i++) {
+  for (let i = 0; i < options.length; i++) {
     const option = options[i];
     option.classList.remove("selected");
   }
