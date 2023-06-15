@@ -73,6 +73,7 @@ class Navigation {
     const navLinkElem = document.createElement("a");
     navLinkElem.classList.add("nav-link");
     navLinkElem.setAttribute("href", "#");
+    navLinkElem.addEventListener("click", () => changeCategory(topicName));
 
     const navIconElem = document.createElement("i");
     navIconElem.setAttribute("class", icon);
@@ -162,3 +163,24 @@ class Navigation {
     document.body.appendChild(this.navElem);
   }
 }
+
+const categoryList = ["general", "maths", "it", "music"];
+
+function setCategory() {
+  const mainElem = document.querySelector("main");
+  let temp;
+  const category = localStorage.getItem("category") ||
+      (temp = categoryList[0], localStorage.setItem("category", categoryList[0]), temp);
+  const categoryClassName = "category-" + category;
+  console.log("setting category to: " + categoryClassName);
+  mainElem.className = categoryClassName;
+}
+
+function changeCategory(newCategory) {
+  localStorage.setItem("category", newCategory);
+  setCategory();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  setCategory();
+});

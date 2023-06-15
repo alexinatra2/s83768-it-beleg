@@ -17,17 +17,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
   <!-- end import the goolge font Oswald  -->
 
+  <!-- use of scripts -->
   <!-- use the stylesheets inside the css directory -->
   <style>
     @import "css/main.css";
     @import "css/theme.css";
     @import "css/nav.css";
-    @import "css/menu.css";
+    @import "css/tiles.css";
   </style>
 
   <!-- use of scripts -->
+  <script src="js/utility.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/quiz.js"></script>
   <script defer src="js/theme.js"></script>
-  <script defer src="js/category.js"></script>
 
   <script type="text/javascript">
     if ("serviceWorker" in navigator) {
@@ -42,56 +45,26 @@
 </head>
 
 <body>
-  <nav class="navbar">
-    <ul class="navbar-nav">
-      <li class="home-logo">
-        <a href="index.html" class="nav-link">
-          <span class="link-text">Lernapp</span>
-          <i class="fa-solid fa-house"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#" id="themeButton" class="nav-link">
-          <i class="fa-solid fa-moon" id="darkIcon"></i>
-          <i class="fa-solid fa-sun" id="lightIcon"></i>
-          <i class="fa-solid fa-solar-panel" id="solarIcon"></i>
-          <span class="link-text">Farben</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-
   <header>
-    <h1>Lernapp</h1>
+    <h1>Fragen</h1>
+    <!-- in the future, a user icon should be displayed in the top right corner indicating -->
+    <!-- the login status of the user. -->
+    <!-- the first icon with a `solid` user should indicate a user has authenticated -->
+    <i class="fa-solid fa-user"></i>
+    <!-- while a `regular` user should indicate the lack thereof -->
+    <i class="fa-regular fa-user"></i>
   </header>
 
   <main>
-    <menu>
-      <a href="question.html" class="menu-item">
-        <i class="fa-solid fa-earth-europe"></i>
-        <label class="link-text">Allgemein</label>
-      </a>
-      <a href="question.html" class="menu-item">
-        <i class="fa-solid fa-square-root-variable"></i>
-        <label class="link-text">Mathematik</label>
-      </a>
-      <a href="question.html" class="menu-item">
-        <i class="fa-brands fa-firefox-browser"></i>
-        <label class="link-text">Internettechnologien</label>
-      </a>
-      <a href="question.html" class="menu-item">
-        <i class="fa-solid fa-music"></i>
-        <label class="link-text">Musik</label>
-      </a>
-      <!-- <a href="question.html" class="menu-item"> -->
-      <!--   <i class="fa-solid fa-shuffle"></i> -->
-      <!--   <label class="link-text">Zufall</label> -->
-      <!-- </a> -->
-      <a href="quiz-editor.html" class="menu-item">
-        <i class="fa-solid fa-pen-to-square"></i>
-        <label class="link-text">Quiz Editor</label>
-      </a>
-    </menu>
+    <form id="question-solve-form">
+      <ul class="tiles" id="options">
+        <li class="tile" id="question-tile">
+          <p id="question"></p>
+        </li>
+        <label class="tile" id="submit-button-tile" for="submit-button">Submit Answer</label>
+        <input type="submit" id="submit-button" />
+      </ul>
+    </form>
   </main>
 </body>
 
