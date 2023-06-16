@@ -19,10 +19,10 @@ const TOPIC_DATA = {
     "icon": "fa-solid fa-music",
     "label": "Musik",
   },
-  "quizeditor": {
-    "icon": "fa-solid fa-pen-to-square",
-    "label": "Quiz Editor",
-  },
+  "people": {
+    "icon": "fa-solid fa-landmark-dome",
+    "label": "Personen",
+  }
 };
 
 const THEME_BUTTON_ICONS = {
@@ -47,21 +47,6 @@ class Navigation {
     this.navItems = [];
   }
 
-  addItems(topicList) {
-    for (const topic of topicList) {
-      switch(topic) {
-        case "home":
-          this.addHomeLogo();
-          break;
-        case "theme":
-          this.addThemeButton();
-          break;
-        default:
-          this.addNavItem(topic);
-      }
-    }
-  }
-
   addNavItem(topicName) {
     const topic = TOPIC_DATA[topicName];
     const label = topic.label;
@@ -72,7 +57,7 @@ class Navigation {
 
     const navLinkElem = document.createElement("a");
     navLinkElem.classList.add("nav-link");
-    navLinkElem.setAttribute("href", "#");
+    navLinkElem.setAttribute("href", "javascript:window.location.reload(true)");
     navLinkElem.addEventListener("click", () => changeCategory(topicName));
 
     const navIconElem = document.createElement("i");
@@ -164,7 +149,7 @@ class Navigation {
   }
 }
 
-const categoryList = ["general", "maths", "it", "music"];
+const categoryList = ["general", "maths", "it", "music", "people"];
 
 function setCategory() {
   const mainElem = document.querySelector("main");
@@ -176,6 +161,7 @@ function setCategory() {
 
 function changeCategory(newCategory) {
   localStorage.setItem("category", newCategory);
+  console.log(getCategory());
   setCategory();
 }
 

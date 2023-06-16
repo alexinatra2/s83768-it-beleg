@@ -18,21 +18,24 @@ class Quiz {
   }
 
   async loadQuestion() {
-    this.currentQuestion = await fetch(this.env.API_BASE_URL + this.questionID,
-        {
-          method: "GET",
-          headers: this.headers
-        })
-        .then((response) => response.json())
-        .then(async (json) => {
-          let question = new Question(json.text, json.options);
-          const correct = await this.getCorrect();
-          question.setCorrect(correct);
-          return question;
-        })
-        .catch((_) => {
-          console.log(this.questionCatalogue[this.selectedCategory]);
-        });
+    if (this.selectedCategory === "people") {
+      this.currentQuestion = await fetch(this.env.API_BASE_URL + this.questionID,
+          {
+            method: "GET",
+            headers: this.headers
+          })
+          .then((response) => response.json())
+          .then(async (json) => {
+            let question = new Question(json.text, json.options);
+            const correct = await this.getCorrect();
+            question.setCorrect(correct);
+            return question;
+          })
+    } else {
+      this.currentQuestion = this.questionCatalogue.questionSets
+          .find((qs) => qs.title === this.selectedCategory)
+          .getRandom();
+    }
   }
 
   renderOptions() {
@@ -68,30 +71,34 @@ class Quiz {
   }
 
   async highlightCorrect() {
-    const correctID = await this.getCorrect();
-    const correctOptionElem = document.getElementById("option-" + correctID);
+    const correctOptionElem = document.getElementById("option-" + this.currentQuestion.correct);
     correctOptionElem.parentNode.classList.add("correct");
   }
 
   // solve a question from the web-quizzes api
   async solve(solution) {
-    const url = this.env.API_BASE_URL + this.questionID + "/solve";
-    const headers = this.headers;
-    headers.set("Content-Type", "application/json");
-    const formattedSolution = `[${solution}]`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: headers,
-      body: formattedSolution,
-    });
-    return await response.json();
+    if (this.selectedCategory === "people") {
+      const url = this.env.API_BASE_URL + this.questionID + "/solve";
+      const headers = this.headers;
+      headers.set("Content-Type", "application/json");
+      const formattedSolution = `[${solution}]`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: headers,
+        body: formattedSolution,
+      });
+      const responseJSON = await response.json();
+      return responseJSON.success;
+    } else {
+      return this.currentQuestion.isCorrect(solution);
+    }
   }
 
   // obtain the correct answer by brute-forcing all choices
   async getCorrect() {
     for (let solutionIndex = 0; solutionIndex < 4; solutionIndex++) {
-      const response = await this.solve(solutionIndex);
-      if (response.success) {
+      const isCorrect = await this.solve(solutionIndex);
+      if (isCorrect) {
         return solutionIndex;
       }
     }
@@ -106,6 +113,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     .addNavItem("maths")
     .addNavItem("it")
     .addNavItem("music")
+    .addNavItem("people")
     .addThemeButton()
     .create();
 

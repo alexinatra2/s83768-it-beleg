@@ -16,6 +16,10 @@ class Question {
     setCorrect(correct) {
         this.correct = correct;
     }
+
+    isCorrect(option) {
+        return this.correct == option;
+    }
 }
 
 class QuestionSet {
@@ -29,6 +33,10 @@ class QuestionSet {
 
     addQuestion(question) {
         this.questions.push(question);
+    }
+
+    getRandom() {
+        return this.questions[Math.floor(Math.random()*this.questions.length)];
     }
 }
 

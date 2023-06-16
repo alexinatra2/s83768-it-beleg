@@ -10,7 +10,7 @@
 }
 
 .light {
-  --bg-main: #e8e8e8;
+  --bg-main: #34343f;
   --bg-header-start: #79b0ab;
   --bg-primary: #e4e4e4;
   --bg-secondary: #c4c4c4;
@@ -21,7 +21,7 @@
 }
 
 .solar {
-  --bg-main: #ffffe0;
+  --bg-main: #34343f;
   --bg-header-start: #87cfeb;
   --bg-primary: #f6deb3;
   --bg-secondary: #91846a;

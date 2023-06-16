@@ -52,6 +52,10 @@ main.category-music {
   background-image: url(../assets/images/music.jpg);
 }
 
+main.category-people {
+  background-image: url(../assets/images/people.jpg);
+}
+
 h1 {
   position: relative;
   text-align: center;
