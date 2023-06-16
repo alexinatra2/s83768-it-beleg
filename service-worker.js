@@ -4,8 +4,17 @@ let cacheName = "MyCacheV" + version;
 
 let filesToCache = [
   "/",
-  "/index.html",
-  "js/utility.js"
+  "index.html",
+  "js/nav.js",
+  "js/question.js",
+  "js/quiz.js",
+  "js/theme.js",
+  "js/utility.js",
+  "css/main.css",
+  "css/nav.css",
+  "css/theme.css",
+  "css/tiles.css",
+  "resources/questionCatalogue.json"
 ];
 
 self.addEventListener("install", function (event) {
