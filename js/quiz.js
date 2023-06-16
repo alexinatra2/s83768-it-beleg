@@ -38,7 +38,7 @@ class Quiz {
     }
   }
 
-  renderOptions() {
+  render() {
     const questionElem = document.getElementById("question");
     questionElem.textContent = this.currentQuestion.question;
     const options = this.currentQuestion.options;
@@ -67,7 +67,18 @@ class Quiz {
     const shuffledLiElems = getShuffledArr(liElems);
     shuffledLiElems.forEach((li) => {
       optionsElem.insertBefore(li, submitButtonTileElem);
+      if (this.selectedCategory === "maths") {
+        const labelElem = li.querySelector("label");
+        const content = labelElem.textContent;
+        labelElem.textContent = "";
+        const katexSpan = document.createElement("span");
+        li.querySelector("label").appendChild(katexSpan);
+        katex.render(content, katexSpan, {thrownOnError: false,});
+      }
     });
+    if (this.selectedCategory === "maths") {
+      katex.render(questionElem.textContent, questionElem, {thrownOnError: false,});
+    }
   }
 
   async highlightCorrect() {
@@ -122,7 +133,7 @@ document.addEventListener("DOMContentLoaded", async function() {
   const catalogue = new QuestionCatalogue(qc);
   const quiz = new Quiz(env, catalogue);
   await quiz.loadQuestion();
-  quiz.renderOptions();
+  quiz.render();
 
   const formElem = document.getElementById("question-solve-form");
 
@@ -138,6 +149,6 @@ document.addEventListener("DOMContentLoaded", async function() {
     await ((ms) => new Promise((r) => setTimeout(r, ms)))(1000);
     quiz.questionID++;
     await quiz.loadQuestion();
-    quiz.renderOptions();
+    quiz.render();
   });
 }, false);
