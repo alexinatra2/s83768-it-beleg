@@ -13,9 +13,9 @@
   <link rel="icon" type="image/png" href="./assets/icons/icon.png" sizes="16x16" />
   <link rel="manifest" href="./manifest.json" />
 
-  <!-- import the google font Oswald -->
+  <!-- import the Google font Oswald -->
   <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
-  <!-- end import the goolge font Oswald  -->
+  <!-- end import the Google font Oswald  -->
 
   <!-- use of scripts -->
   <!-- use the stylesheets inside the css directory -->
@@ -36,7 +36,7 @@
   <script type="text/javascript">
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
-        .register(window.location.href + "service-worker.js")
+        .register("./service-worker.js")
         .then(function () {
           console.log("Service Worker Registered");
         });
