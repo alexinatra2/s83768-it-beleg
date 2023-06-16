@@ -170,15 +170,22 @@ function setCategory() {
   const mainElem = document.querySelector("main");
   let temp;
   const category = localStorage.getItem("category") ||
-      (temp = categoryList[0], localStorage.setItem("category", categoryList[0]), temp);
-  const categoryClassName = "category-" + category;
-  console.log("setting category to: " + categoryClassName);
-  mainElem.className = categoryClassName;
+      (temp = categoryList[0], localStorage.setItem("category", temp), temp);
+  mainElem.className = "category-" + category;
 }
 
 function changeCategory(newCategory) {
   localStorage.setItem("category", newCategory);
   setCategory();
+}
+
+function getCategory() {
+  const category = localStorage.getItem("category");
+  if (category == null) {
+    setCategory();
+    return categoryList[0];
+  }
+  return category;
 }
 
 document.addEventListener("DOMContentLoaded", function () {

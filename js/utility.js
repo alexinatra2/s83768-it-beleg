@@ -1,7 +1,5 @@
-let env;
-
 async function loadEnv(envPath) {
-  env = await fetch(envPath).then((response) => response.json());
+  let env = await fetch(envPath).then((response) => response.json());
   env.API_BASE_URL = env.WEB_QUIZ_URL + env.WEB_QUIZ_API_PATH;
   return env;
 }
@@ -31,3 +29,17 @@ function check(event) {
     submitButtonElemClasses.add("ready");
   }
 }
+
+/*
+copied from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+by user ns16
+Randomize array in-place using Durstenfeld shuffle algorithm
+*/
+const getShuffledArr = arr => {
+  const newArr = arr.slice()
+  for (let i = newArr.length - 1; i > 0; i--) {
+    const rand = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+  }
+  return newArr
+};

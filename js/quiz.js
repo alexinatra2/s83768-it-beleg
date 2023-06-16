@@ -1,23 +1,44 @@
 class Quiz {
-  data;
+  questionCatalogue;
+  env;
+  selectedCategory;
+  currentQuestion;
+  questionID;
 
-  constructor() {
+  constructor(env, questionCatalogue) {
+    this.env = env;
     this.headers = new Headers();
-    this.headers.set("Authorization", "Basic " + btoa(env.USER + ":" + env.PASSWORD));
+    this.headers.set("Authorization", "Basic " + btoa(this.env.USER + ":" + this.env.PASSWORD));
+    this.questionCatalogue = questionCatalogue;
+    this.selectedCategory = getCategory();
+
+    let temp;
+    this.questionID = localStorage.getItem("questionID") ||
+        (temp = 2, localStorage.setItem("questionID", temp), temp);
   }
 
-  setQuestionID(questionID) {
-    this.questionID = questionID;
-  }
-
-  incrementQuestionID() {
-    this.setQuestionID(this.questionID + 1);
+  async loadQuestion() {
+    this.currentQuestion = await fetch(this.env.API_BASE_URL + this.questionID,
+        {
+          method: "GET",
+          headers: this.headers
+        })
+        .then((response) => response.json())
+        .then(async (json) => {
+          let question = new Question(json.text, json.options);
+          const correct = await this.getCorrect();
+          question.setCorrect(correct);
+          return question;
+        })
+        .catch((_) => {
+          console.log(this.questionCatalogue[this.selectedCategory]);
+        });
   }
 
   renderOptions() {
     const questionElem = document.getElementById("question");
-    questionElem.textContent = this.data.text;
-    const options = this.data.options;
+    questionElem.textContent = this.currentQuestion.question;
+    const options = this.currentQuestion.options;
     const optionsElem = document.getElementById("options");
     optionsElem.querySelectorAll(".option").forEach((option) =>
       optionsElem.removeChild(option)
@@ -25,6 +46,8 @@ class Quiz {
     const submitButtonTileElem = document.getElementById("submit-button-tile");
     submitButtonTileElem.classList.remove("ready");
     submitButtonTileElem.classList.add("pending");
+
+    let liElems = [];
     Object.keys(options).forEach((i) => {
       const li = document.createElement("li");
       li.setAttribute("class", "option tile");
@@ -36,6 +59,10 @@ class Quiz {
         <input id=${optionID} type="radio" name="solution" value=${i} />
         <label for=${optionID}>${options[i]}</label>
       `;
+      liElems.push(li);
+    });
+    const shuffledLiElems = getShuffledArr(liElems);
+    shuffledLiElems.forEach((li) => {
       optionsElem.insertBefore(li, submitButtonTileElem);
     });
   }
@@ -46,22 +73,9 @@ class Quiz {
     correctOptionElem.parentNode.classList.add("correct");
   }
 
-  // get a question from the web-quizzes api
-  async fetchQuestion() {
-    const response = await fetch(
-      env.API_BASE_URL + this.questionID,
-      {
-        method: "GET",
-        headers: this.headers,
-      },
-    );
-    this.data = await response.json();
-    return this.data;
-  }
-
   // solve a question from the web-quizzes api
   async solve(solution) {
-    const url = env.API_BASE_URL + this.questionID + "/solve";
+    const url = this.env.API_BASE_URL + this.questionID + "/solve";
     const headers = this.headers;
     headers.set("Content-Type", "application/json");
     const formattedSolution = `[${solution}]`;
@@ -70,35 +84,18 @@ class Quiz {
       headers: headers,
       body: formattedSolution,
     });
-    const responseJson = await response.json();
-    console.log(responseJson);
-    return responseJson;
+    return await response.json();
   }
 
   // obtain the correct answer by brute-forcing all choices
   async getCorrect() {
-    const options = this.data.options;
-    for (const solutionIndex of options.keys()) {
+    for (let solutionIndex = 0; solutionIndex < 4; solutionIndex++) {
       const response = await this.solve(solutionIndex);
       if (response.success) {
         return solutionIndex;
       }
     }
     throw "No correct option exists";
-  }
-
-  // get all quiz questions that have been completed so far
-  async getCompleted() {
-    const response = await fetch(
-      env.API_BASE_URL + "completed",
-      {
-        method: "GET",
-        headers: this.headers,
-      },
-    );
-    const responseJson = await response.json();
-    console.log(responseJson);
-    return responseJson;
   }
 }
 
@@ -112,10 +109,11 @@ document.addEventListener("DOMContentLoaded", async function() {
     .addThemeButton()
     .create();
 
-  await loadEnv("./env.json");
-  const quiz = new Quiz();
-  quiz.setQuestionID(2);
-  await quiz.fetchQuestion();
+  const env = await loadEnv("./env.json");
+  const qc = await fetch("./resources/questionCatalogue.json").then((res) => res.json());
+  const catalogue = new QuestionCatalogue(qc);
+  const quiz = new Quiz(env, catalogue);
+  await quiz.loadQuestion();
   quiz.renderOptions();
 
   const formElem = document.getElementById("question-solve-form");
@@ -130,8 +128,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     await quiz.solve(pickedOption);
     await quiz.highlightCorrect();
     await ((ms) => new Promise((r) => setTimeout(r, ms)))(1000);
-    quiz.incrementQuestionID();
-    await quiz.fetchQuestion();
+    quiz.questionID++;
+    await quiz.loadQuestion();
     quiz.renderOptions();
   });
 }, false);
