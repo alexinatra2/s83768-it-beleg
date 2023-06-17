@@ -52,6 +52,10 @@ main.category-music {
   background-image: url(../assets/images/music.jpg);
 }
 
+main.category-people {
+  background-image: url(../assets/images/people.jpg);
+}
+
 h1 {
   position: relative;
   text-align: center;
@@ -104,13 +108,4 @@ header:hover {
   animation: color-rotate 2s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-}
-
-#question {
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
-  margin: min(1.5rem, 5vw);
-  padding: 1rem;
-  border-radius: 20px;
-  text-align: center;
 }

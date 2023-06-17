@@ -1,110 +1,83 @@
-let env;
-
-async function loadEnv(envPath) {
-  env = await fetch(envPath).then((response) => response.json());
-  env.API_BASE_URL = env.WEB_QUIZ_URL + env.WEB_QUIZ_API_PATH;
-  return env;
-}
-
+/**
+ * @author Alexander Holzknecht
+ *
+ * A class holding model data for a question o
+ */
 class Question {
-  constructor(questionID) {
-    this.headers = new Headers();
-    this.headers.set(
-      "Authorization",
-      "Basic " + btoa(env.USER + ":" + env.PASSWORD),
-    );
-    this.questionID = questionID;
-  }
+    question;
+    options;
+    correct;
 
-  fill() {
-    const questionElem = document.getElementById("question");
-    questionElem.textContent = this.data.text;
-    const optionsElem = document.getElementById("options");
-    const options = data.options;
-    Object.keys(options).forEach((i) => {
-      this.createOption(optionsElem, i, options[i]);
-    });
-  }
+    constructor(question, options) {
+        console.assert(options.length === 4);
+        this.question = question;
+        this.options = {};
+        for (let i = 0; i < 4; i++) {
+            this.options[i] = options[i];
+        }
+        this.correct = 0;
+    }
 
-  createOption(elem, index, content) {
-    const li = document.createElement("li");
-    li.setAttribute("class", "option");
-    li.setAttribute("onclick", "check(event)");
+    /**
+     * sets the correct option in case it is fetched from the server and therefore
+     * not automatically the first one.
+     *
+     * @param correct the correct option
+     */
+    setCorrect(correct) {
+        this.correct = correct;
+    }
 
-    var optionIndex = index;
-    optionIndex++;
-    const optionID = "option-" + optionIndex;
-
-    li.innerHTML = `
-    <input id=${optionID} type="radio" name="question" value=${optionIndex} />
-    <label for=${optionID}>${content}</label>
-  `;
-
-    const submitElem = document.querySelector(".pending,.ready");
-
-    elem.insertBefore(li, submitElem);
-  }
-
-  // get a question from the web-quizzes api
-  async fetch(quizID) {
-    const response = await fetch(
-      env.API_BASE_URL + quizID,
-      {
-        method: "GET",
-        headers: baseHeaders(),
-      },
-    );
-    return await response.json();
-  }
-
-  // solve a question from the web-quizzes api
-  async solve(quizID, solution) {
-    const url = env.API_BASE_URL + quizID + "/solve";
-    const headers = baseHeaders();
-    headers.set("Content-Type", "application/json");
-    const response = await fetch(url, {
-      method: "POST",
-      headers: headers,
-      body: solution,
-    });
-    return await response.json();
-  }
-
-  // get all quiz questions that have been completed so far
-  async getCompleted() {
-    const response = await fetch(
-      env.API_BASE_URL + "completed",
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Access-Control-Allow-Origin": "no-cors",
-        },
-      },
-    );
-    return await response.json();
-  }
-
-  
+    isCorrect(option) {
+        return this.correct == option;
+    }
 }
 
-document.addEventListener("DOMContentLoaded", async function () {
-  const env = await loadEnv("./env.json");
-  const question = new Question(env);
-  quiestion.fill(await getQuiz(3));
-  const formElem = document.getElementById("question-solve-form");
-  formElem.addEventListener("submit", (e) => {
-    e.preventDefault();
-    new FormData(formElem);
-  });
-  formElem.addEventListener("formdata", async function (e) {
-    const data = e.formData;
-    let jsonData = {};
-    for (const pair of data.entries()) {
-      jsonData[pair[0]] = pair[1];
+/**
+ * @author Alexander Holzknecht
+ *
+ * A class containing an aggregate of questions corresponding
+ * to a topic
+ */
+class QuestionSet {
+    questions;
+    title;
+
+    constructor(title) {
+        this.title = title;
+        this.questions = [];
     }
-    console.log(jsonData.question);
-    const response = await solveQuiz(3, "[" + jsonData.question + "]");
-    console.log(response);
-  });
-}, false);
+
+    addQuestion(question) {
+        this.questions.push(question);
+    }
+
+    /**
+     *
+     * @returns {*} a random element from the questions list
+     */
+    getRandom() {
+        return this.questions[Math.floor(Math.random()*this.questions.length)];
+    }
+}
+
+/**
+ * @author Alexander Holzknecht
+ *
+ * A model class containing all questions of organized into categories
+ */
+class QuestionCatalogue {
+    categories = [];
+    questionSets = [];
+
+    constructor(catalogueJSON) {
+        for (const key of Object.keys(catalogueJSON)) {
+            this.categories.push(key);
+            let questionSet = new QuestionSet(key);
+            for (const question of catalogueJSON[key]) {
+                questionSet.addQuestion(new Question(question["a"], question["l"]));
+            }
+            this.questionSets.push(questionSet);
+        }
+    }
+}
