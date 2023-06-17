@@ -1,10 +1,28 @@
+/**
+ * @author Alexander Holzknecht
+ *
+ * A class holding the state of the current quiz session
+ */
 class Quiz {
+  /**
+   * The question catalogue of all locally available questions
+   */
   questionCatalogue;
   env;
   selectedCategory;
   currentQuestion;
+  /**
+   * The questionID field is used to fetch the API data from the server.
+   * It holds the ID required by the path parameter for the quiz API
+   */
   questionID;
 
+  /**
+   * constructor for the Quiz class
+   *
+   * @param env the environment variables that should be specified in "./env.json"
+   * @param questionCatalogue a json formatted version of the question catalogue
+   */
   constructor(env, questionCatalogue) {
     this.env = env;
     this.headers = new Headers();
@@ -17,6 +35,12 @@ class Quiz {
         (temp = 2, localStorage.setItem("questionID", temp), temp);
   }
 
+  /**
+   * Loads either the next question from the online questions or a random
+   * one from the current category, dependent on the "selectedCategory" field
+   *
+   * @returns {Promise<void>} an empty promise :'(
+   */
   async loadQuestion() {
     if (this.selectedCategory === "people") {
       this.currentQuestion = await fetch(this.env.API_BASE_URL + this.questionID,
@@ -38,6 +62,11 @@ class Quiz {
     }
   }
 
+  /**
+   * Method responsible for rendering all state of the quiz to the DOM.
+   * The category "maths" gets special treatment as it has to be rendered
+   * by the katex engine
+   */
   render() {
     const questionElem = document.getElementById("question");
     questionElem.textContent = this.currentQuestion.question;
@@ -79,14 +108,24 @@ class Quiz {
     if (this.selectedCategory === "maths") {
       katex.render(questionElem.textContent, questionElem, {thrownOnError: false,});
     }
+    let headingElem = document.querySelector("h1");
+    headingElem.textContent = TOPIC_DATA[this.selectedCategory].label;
   }
 
+  /**
+   * Adds the "correct" class to the correct option of the current question
+   *
+   * @returns {Promise<void>} the correct option index
+   */
   async highlightCorrect() {
     const correctOptionElem = document.getElementById("option-" + this.currentQuestion.correct);
     correctOptionElem.parentNode.classList.add("correct");
+    return this.currentQuestion.correct;
   }
 
-  // solve a question from the web-quizzes api
+  /**
+   *   solve a question from the web-quizzes api
+   */
   async solve(solution) {
     if (this.selectedCategory === "people") {
       const url = this.env.API_BASE_URL + this.questionID + "/solve";
@@ -105,7 +144,9 @@ class Quiz {
     }
   }
 
-  // obtain the correct answer by brute-forcing all choices
+  /**
+   *   obtain the correct answer by brute-forcing all choices
+   */
   async getCorrect() {
     for (let solutionIndex = 0; solutionIndex < 4; solutionIndex++) {
       const isCorrect = await this.solve(solutionIndex);
@@ -137,11 +178,18 @@ document.addEventListener("DOMContentLoaded", async function() {
 
   const formElem = document.getElementById("question-solve-form");
 
+  /**
+   * prevent the default behaviour of the submit button and instead delegate to the "formadata" event
+   * that gets fired by the creation of a "FormData" object
+   */
   formElem.addEventListener("submit", (e) => {
     e.preventDefault();
     new FormData(formElem);
   });
 
+  /**
+   * handle the routine of finding new questions and rendering
+   */
   formElem.addEventListener("formdata", async function(e) {
     const pickedOption = e.formData.get("solution");
     await quiz.solve(pickedOption);

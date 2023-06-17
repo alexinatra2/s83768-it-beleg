@@ -47,22 +47,12 @@
           integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
           crossorigin="anonymous"
   ></script>
-  <!-- To automatically render math in text elements, include the auto-render extension: -->
-  <script
-          defer
-          src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
-          integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
-          crossorigin="anonymous"
-          onload="renderMathInElement(document.body);"
-  ></script>
 
   <script type="text/javascript">
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("./service-worker.js")
-        .then(function () {
-          console.log("Service Worker Registered");
-        });
+        .then(() => console.log("Service Worker Registered"));
     }
   </script>
   <script src="https://kit.fontawesome.com/086e5bc465.js" crossorigin="anonymous"></script>
@@ -70,7 +60,7 @@
 
 <body>
   <header>
-    <h1>Fragen</h1>
+    <h1></h1>
     <!-- in the future, a user icon should be displayed in the top right corner indicating -->
     <!-- the login status of the user. -->
     <!-- the first icon with a `solid` user should indicate a user has authenticated -->

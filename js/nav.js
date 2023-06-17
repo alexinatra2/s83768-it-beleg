@@ -1,3 +1,8 @@
+/**
+ * Defines the topic data containing the font awesome icon name and the category's German name
+ *
+ * @type {{general: {icon: string, label: string}, music: {icon: string, label: string}, maths: {icon: string, label: string}, it: {icon: string, label: string}, people: {icon: string, label: string}, home: {icon: string, label: string}}}
+ */
 const TOPIC_DATA = {
   "home": {
     "icon": "fa-solid fa-house",
@@ -25,17 +30,31 @@ const TOPIC_DATA = {
   }
 };
 
+/**
+ * Defines the theme button icons for the three available themes
+ *
+ * @type {{lightIcon: string, solarIcon: string, darkIcon: string}}
+ */
 const THEME_BUTTON_ICONS = {
   "darkIcon": "fa-solid fa-moon",
   "lightIcon": "fa-solid fa-sun",
   "solarIcon": "fa-solid fa-solar-panel",
 };
 
+/**
+ * @author Alexander Holzknecht
+ *
+ * A builder class for dynamically generating a nav bar
+ */
 class Navigation {
   navElem;
   ulElem;
   navItems;
 
+  /**
+   * constructor for Navigation class. It is responsible for creating the
+   * skeleton of the nav bar
+   */
   constructor() {
     this.navElem = document.createElement("nav");
     this.navElem.classList.add("navbar");
@@ -47,6 +66,12 @@ class Navigation {
     this.navItems = [];
   }
 
+  /**
+   * Builder method to add a topic
+   *
+   * @param topicName the topic to be added, strings should exactly match keys in TOPIC_DATA
+   * @returns {Navigation} the navigation element
+   */
   addNavItem(topicName) {
     const topic = TOPIC_DATA[topicName];
     const label = topic.label;
@@ -75,6 +100,11 @@ class Navigation {
     return this;
   }
 
+  /**
+   * Builder method to add a home logo
+   *
+   * @returns {Navigation} The Navigation object
+   */
   addHomeLogo() {
     const newHomeLogoElem = document.createElement("li");
     newHomeLogoElem.classList.add("home-logo");
@@ -102,6 +132,11 @@ class Navigation {
     return this;
   }
 
+  /**
+   * Builder method for adding a theme button
+   *
+   * @returns {Navigation} The Navigation object
+   */
   addThemeButton() {
     const newNavItemElem = document.createElement("li");
     newNavItemElem.classList.add("nav-item");
@@ -141,6 +176,9 @@ class Navigation {
     return this;
   }
 
+  /**
+   * Adds the Navigation element to the DOM
+   */
   create() {
     this.navItems.forEach((item) => {
       this.ulElem.appendChild(item);
@@ -149,9 +187,19 @@ class Navigation {
   }
 }
 
+/**
+ * Define the list of all categories present
+ *
+ * @type {string[]}
+ */
 const categoryList = ["general", "maths", "it", "music", "people"];
 
-function setCategory() {
+/**
+ * A function for adding the category information to the DOM.
+ * It retrieves the selected category from local storage and defaults to
+ * the "general" category if the corresponding element does not yet exists
+ */
+function setCategoryInDOM() {
   const mainElem = document.querySelector("main");
   let temp;
   const category = localStorage.getItem("category") ||
@@ -159,21 +207,35 @@ function setCategory() {
   mainElem.className = "category-" + category;
 }
 
+/**
+ * A function for changing the local storage variable for the selected
+ * category and simultaneously changing the DOM category
+ *
+ * @param newCategory
+ */
 function changeCategory(newCategory) {
   localStorage.setItem("category", newCategory);
   console.log(getCategory());
-  setCategory();
+  setCategoryInDOM();
 }
 
+/**
+ *
+ * @returns {string} the selected category string
+ */
 function getCategory() {
   const category = localStorage.getItem("category");
   if (category == null) {
-    setCategory();
+    setCategoryInDOM();
     return categoryList[0];
   }
   return category;
 }
 
+/**
+ * On window load the category should be added to the DOM such as to
+ * display the correct information
+ */
 document.addEventListener("DOMContentLoaded", function () {
-  setCategory();
+  setCategoryInDOM();
 });

@@ -1,3 +1,8 @@
+/**
+ * @author Alexander Holzknecht
+ *
+ * A class holding model data for a question o
+ */
 class Question {
     question;
     options;
@@ -13,6 +18,12 @@ class Question {
         this.correct = 0;
     }
 
+    /**
+     * sets the correct option in case it is fetched from the server and therefore
+     * not automatically the first one.
+     *
+     * @param correct the correct option
+     */
     setCorrect(correct) {
         this.correct = correct;
     }
@@ -22,6 +33,12 @@ class Question {
     }
 }
 
+/**
+ * @author Alexander Holzknecht
+ *
+ * A class containing an aggregate of questions corresponding
+ * to a topic
+ */
 class QuestionSet {
     questions;
     title;
@@ -35,11 +52,20 @@ class QuestionSet {
         this.questions.push(question);
     }
 
+    /**
+     *
+     * @returns {*} a random element from the questions list
+     */
     getRandom() {
         return this.questions[Math.floor(Math.random()*this.questions.length)];
     }
 }
 
+/**
+ * @author Alexander Holzknecht
+ *
+ * A model class containing all questions of organized into categories
+ */
 class QuestionCatalogue {
     categories = [];
     questionSets = [];

@@ -6,3 +6,5 @@ Die Aufgabenstellung besteht aus den Teilen (die Github-Nutzung wird für diesen
 * [Aufgabenstellung](Beleg-Aufgabenstellung.md)
 * [Abgabeformat](Beleg-Abgabeformat.md)
 * [Git/Github-Nutzung](https://github.com/HTWDD-RN/RTSP-Streaming/blob/master/git.md).
+
+Zu meiner Dokumentation geht es [hier](doc.md)

@@ -6,7 +6,9 @@ async function loadEnv(envPath) {
 
 let selectionPending = true;
 
-// utility for checking a radio button option
+/**
+ * utility for checking a radio button option
+ */
 function check(event) {
   const elem = event.target;
   if (!elem.classList.contains("option")) {
